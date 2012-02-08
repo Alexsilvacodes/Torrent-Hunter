@@ -3,7 +3,7 @@
 //  Torrent Hunter
 //
 //  Created by Alejandro Silva on 02/02/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 AH-Develop. All rights reserved.
 //
 
 #import "AppDelegate.h"

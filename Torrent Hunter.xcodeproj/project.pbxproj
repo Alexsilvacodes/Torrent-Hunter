@@ -17,6 +17,8 @@
 		FA28C2B414DB30770026F771 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA28C29414DB30770026F771 /* Cocoa.framework */; };
 		FA28C2BC14DB30770026F771 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA28C2BA14DB30770026F771 /* InfoPlist.strings */; };
 		FA28C2BF14DB30770026F771 /* Torrent_HunterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA28C2BE14DB30770026F771 /* Torrent_HunterTests.m */; };
+		FAE4E0BF14E178360022AF4F /* Torrent.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE4E0BE14E178360022AF4F /* Torrent.m */; };
+		FAE4E0C214E1ECBA0022AF4F /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE4E0C114E1ECBA0022AF4F /* TableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,14 @@
 		FA28C2BB14DB30770026F771 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FA28C2BD14DB30770026F771 /* Torrent_HunterTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Torrent_HunterTests.h; sourceTree = "<group>"; };
 		FA28C2BE14DB30770026F771 /* Torrent_HunterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Torrent_HunterTests.m; sourceTree = "<group>"; };
+		FAE335DD14E2FD1700B498E9 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = "/Users/Alex/Dropbox/Proyectos/Torrent Hunter/Torrent HunterTests/es.lproj/InfoPlist.strings"; sourceTree = "<absolute>"; };
+		FAE335DE14E2FD1700B498E9 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = "/Users/Alex/Dropbox/Proyectos/Torrent Hunter/Torrent Hunter/es.lproj/InfoPlist.strings"; sourceTree = "<absolute>"; };
+		FAE335DF14E2FD1700B498E9 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = es; path = "/Users/Alex/Dropbox/Proyectos/Torrent Hunter/Torrent Hunter/es.lproj/Credits.rtf"; sourceTree = "<absolute>"; };
+		FAE335E014E2FD1700B498E9 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = "/Users/Alex/Dropbox/Proyectos/Torrent Hunter/Torrent Hunter/es.lproj/MainMenu.xib"; sourceTree = "<absolute>"; };
+		FAE4E0BD14E178360022AF4F /* Torrent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Torrent.h; sourceTree = "<group>"; };
+		FAE4E0BE14E178360022AF4F /* Torrent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Torrent.m; sourceTree = "<group>"; };
+		FAE4E0C014E1ECBA0022AF4F /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		FAE4E0C114E1ECBA0022AF4F /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				FA28C29A14DB30770026F771 /* Torrent Hunter */,
+				FAE4E0BC14E177BD0022AF4F /* Other sources */,
 				FA28C2B714DB30770026F771 /* Torrent HunterTests */,
 				FA28C29314DB30770026F771 /* Frameworks */,
 				FA28C29114DB30770026F771 /* Products */,
@@ -116,8 +127,10 @@
 			children = (
 				FA28C2A614DB30770026F771 /* AppDelegate.h */,
 				FA28C2A714DB30770026F771 /* AppDelegate.m */,
-				FA28C2A914DB30770026F771 /* MainMenu.xib */,
-				FA28C29B14DB30770026F771 /* Supporting Files */,
+				FAE4E0BD14E178360022AF4F /* Torrent.h */,
+				FAE4E0BE14E178360022AF4F /* Torrent.m */,
+				FAE4E0C014E1ECBA0022AF4F /* TableViewController.h */,
+				FAE4E0C114E1ECBA0022AF4F /* TableViewController.m */,
 			);
 			path = "Torrent Hunter";
 			sourceTree = "<group>";
@@ -132,6 +145,7 @@
 				FA28C2A314DB30770026F771 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			path = "Torrent Hunter";
 			sourceTree = "<group>";
 		};
 		FA28C2B714DB30770026F771 /* Torrent HunterTests */ = {
@@ -151,6 +165,15 @@
 				FA28C2BA14DB30770026F771 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FAE4E0BC14E177BD0022AF4F /* Other sources */ = {
+			isa = PBXGroup;
+			children = (
+				FA28C29B14DB30770026F771 /* Supporting Files */,
+				FA28C2A914DB30770026F771 /* MainMenu.xib */,
+			);
+			name = "Other sources";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,6 +285,8 @@
 			files = (
 				FA28C2A114DB30770026F771 /* main.m in Sources */,
 				FA28C2A814DB30770026F771 /* AppDelegate.m in Sources */,
+				FAE4E0BF14E178360022AF4F /* Torrent.m in Sources */,
+				FAE4E0C214E1ECBA0022AF4F /* TableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +313,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FA28C29E14DB30770026F771 /* en */,
+				FAE335DE14E2FD1700B498E9 /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -296,6 +322,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FA28C2A414DB30770026F771 /* en */,
+				FAE335DF14E2FD1700B498E9 /* es */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
@@ -304,14 +331,17 @@
 			isa = PBXVariantGroup;
 			children = (
 				FA28C2AA14DB30770026F771 /* en */,
+				FAE335E014E2FD1700B498E9 /* es */,
 			);
 			name = MainMenu.xib;
+			path = "Torrent Hunter";
 			sourceTree = "<group>";
 		};
 		FA28C2BA14DB30770026F771 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				FA28C2BB14DB30770026F771 /* en */,
+				FAE335DD14E2FD1700B498E9 /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -435,6 +465,7 @@
 				FA28C2C414DB30770026F771 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FA28C2C514DB30770026F771 /* Build configuration list for PBXNativeTarget "Torrent HunterTests" */ = {
 			isa = XCConfigurationList;
@@ -443,6 +474,7 @@
 				FA28C2C714DB30770026F771 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

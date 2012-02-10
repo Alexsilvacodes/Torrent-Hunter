@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface Torrent : NSObject {
+@private
     NSString *title;
     NSString *magnetLink;
     NSString *url;

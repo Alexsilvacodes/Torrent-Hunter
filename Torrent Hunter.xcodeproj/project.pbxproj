@@ -17,6 +17,10 @@
 		FA28C2B414DB30770026F771 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA28C29414DB30770026F771 /* Cocoa.framework */; };
 		FA28C2BC14DB30770026F771 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA28C2BA14DB30770026F771 /* InfoPlist.strings */; };
 		FA28C2BF14DB30770026F771 /* Torrent_HunterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA28C2BE14DB30770026F771 /* Torrent_HunterTests.m */; };
+		FA6B9C9214EC0AA3006DD9D0 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6B9C8F14EC0AA3006DD9D0 /* HTMLNode.m */; };
+		FA6B9C9314EC0AA3006DD9D0 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6B9C9114EC0AA3006DD9D0 /* HTMLParser.m */; };
+		FA6B9C9514EC0AE5006DD9D0 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6B9C9414EC0AE5006DD9D0 /* libxml2.dylib */; };
+		FA6B9C9814EC0B51006DD9D0 /* ParseWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6B9C9714EC0B51006DD9D0 /* ParseWeb.m */; };
 		FAE4E0BF14E178360022AF4F /* Torrent.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE4E0BE14E178360022AF4F /* Torrent.m */; };
 		FAE4E0C214E1ECBA0022AF4F /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE4E0C114E1ECBA0022AF4F /* TableViewController.m */; };
 /* End PBXBuildFile section */
@@ -47,6 +51,13 @@
 		FA28C2B914DB30770026F771 /* Torrent HunterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Torrent HunterTests-Info.plist"; sourceTree = "<group>"; };
 		FA28C2BD14DB30770026F771 /* Torrent_HunterTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Torrent_HunterTests.h; sourceTree = "<group>"; };
 		FA28C2BE14DB30770026F771 /* Torrent_HunterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Torrent_HunterTests.m; sourceTree = "<group>"; };
+		FA6B9C8E14EC0AA3006DD9D0 /* HTMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLNode.h; sourceTree = "<group>"; };
+		FA6B9C8F14EC0AA3006DD9D0 /* HTMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLNode.m; sourceTree = "<group>"; };
+		FA6B9C9014EC0AA3006DD9D0 /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLParser.h; sourceTree = "<group>"; };
+		FA6B9C9114EC0AA3006DD9D0 /* HTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLParser.m; sourceTree = "<group>"; };
+		FA6B9C9414EC0AE5006DD9D0 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		FA6B9C9614EC0B51006DD9D0 /* ParseWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseWeb.h; sourceTree = "<group>"; };
+		FA6B9C9714EC0B51006DD9D0 /* ParseWeb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseWeb.m; sourceTree = "<group>"; };
 		FA9AD6EF14E495F40058026D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = "/Users/Alex/Dropbox/Proyectos/Torrent Hunter/Torrent HunterTests/es.lproj/InfoPlist.strings"; sourceTree = "<absolute>"; };
 		FA9AD6F014E495F40058026D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = "/Users/Alex/Dropbox/Proyectos/Torrent Hunter/Torrent Hunter/es.lproj/InfoPlist.strings"; sourceTree = "<absolute>"; };
 		FA9AD6F114E495F40058026D /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = "/Users/Alex/Dropbox/Proyectos/Torrent Hunter/Torrent Hunter/es.lproj/MainMenu.xib"; sourceTree = "<absolute>"; };
@@ -62,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA6B9C9514EC0AE5006DD9D0 /* libxml2.dylib in Frameworks */,
 				FA28C29514DB30770026F771 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -101,6 +113,7 @@
 		FA28C29314DB30770026F771 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FA6B9C9414EC0AE5006DD9D0 /* libxml2.dylib */,
 				FA28C29414DB30770026F771 /* Cocoa.framework */,
 				FA28C2B214DB30770026F771 /* SenTestingKit.framework */,
 				FA28C29614DB30770026F771 /* Other Frameworks */,
@@ -125,6 +138,8 @@
 				FA28C2A714DB30770026F771 /* AppDelegate.m */,
 				FAE4E0BD14E178360022AF4F /* Torrent.h */,
 				FAE4E0BE14E178360022AF4F /* Torrent.m */,
+				FA6B9C9614EC0B51006DD9D0 /* ParseWeb.h */,
+				FA6B9C9714EC0B51006DD9D0 /* ParseWeb.m */,
 				FAE4E0C014E1ECBA0022AF4F /* TableViewController.h */,
 				FAE4E0C114E1ECBA0022AF4F /* TableViewController.m */,
 			);
@@ -163,9 +178,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		FA6B9C8C14EC0A25006DD9D0 /* HTMLParser */ = {
+			isa = PBXGroup;
+			children = (
+				FA6B9C8E14EC0AA3006DD9D0 /* HTMLNode.h */,
+				FA6B9C8F14EC0AA3006DD9D0 /* HTMLNode.m */,
+				FA6B9C9014EC0AA3006DD9D0 /* HTMLParser.h */,
+				FA6B9C9114EC0AA3006DD9D0 /* HTMLParser.m */,
+			);
+			name = HTMLParser;
+			path = "Torrent Hunter";
+			sourceTree = "<group>";
+		};
 		FAE4E0BC14E177BD0022AF4F /* Other sources */ = {
 			isa = PBXGroup;
 			children = (
+				FA6B9C8C14EC0A25006DD9D0 /* HTMLParser */,
 				FA28C29B14DB30770026F771 /* Supporting Files */,
 				FA28C2A914DB30770026F771 /* MainMenu.xib */,
 			);
@@ -283,6 +311,9 @@
 				FA28C2A814DB30770026F771 /* AppDelegate.m in Sources */,
 				FAE4E0BF14E178360022AF4F /* Torrent.m in Sources */,
 				FAE4E0C214E1ECBA0022AF4F /* TableViewController.m in Sources */,
+				FA6B9C9214EC0AA3006DD9D0 /* HTMLNode.m in Sources */,
+				FA6B9C9314EC0AA3006DD9D0 /* HTMLParser.m in Sources */,
+				FA6B9C9814EC0B51006DD9D0 /* ParseWeb.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +424,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Torrent Hunter/Torrent Hunter-Prefix.pch";
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "Torrent Hunter/Torrent Hunter-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -404,6 +436,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Torrent Hunter/Torrent Hunter-Prefix.pch";
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "Torrent Hunter/Torrent Hunter-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

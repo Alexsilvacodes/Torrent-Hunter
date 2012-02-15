@@ -14,11 +14,13 @@
     NSString *magnetLink;
     NSString *url;
     int seeders;
+    int leechers;
 }
 
 @property (copy) NSString *title;
 @property (copy) NSString *magnetLink;
 @property (copy) NSString *url;
 @property int seeders;
+@property int leechers;
 
 @end

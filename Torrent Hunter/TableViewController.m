@@ -10,6 +10,7 @@
 #import "Torrent.h"
 
 @implementation TableViewController
+@synthesize parseTPB;
 
 - (id)init {
     self = [super init];
@@ -30,8 +31,19 @@
     return [t valueForKey:identifier];
 }
 
-- (IBAction)add:(id)sender {
-    [list addObject:[[Torrent alloc] init]];
+- (IBAction)search:(id)sender {
+    NSString *searchValue = @"http://thepiratebay.se/search/";
+    searchValue = [searchValue stringByAppendingFormat:[searchField stringValue]];
+    parseTPB = [[ParseWeb alloc] init];
+    NSMutableArray *torrents = [parseTPB loadHTMLbyURL:searchValue];
+    for (Torrent *tor in torrents){
+        NSLog(@"Title: %@",[tor title]);
+        //NSLog(@"Magnet: %@",[tor magnetLink]);
+        NSLog(@"URL: %@",[tor url]);
+        //NSLog(@"Seeders: %@",[tor seeders]);
+        //NSLog(@"Leechers: %@",[tor leechers]);
+        [list addObject:tor];
+    }
     [torrentTableView reloadData];
 }
 

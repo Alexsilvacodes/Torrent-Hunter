@@ -7,13 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ParseWeb.h"
 
 @interface TableViewController : NSObject <NSTableViewDataSource> {
 @private
     IBOutlet NSTableView *torrentTableView;
+    IBOutlet NSSearchField *searchField;
+    ParseWeb *parseTPB;
     NSMutableArray *list;
 }
 
-- (IBAction)add:(id)sender;
+@property (nonatomic, retain) ParseWeb *parseTPB;
+
+- (IBAction)search:(id)sender;
 
 @end

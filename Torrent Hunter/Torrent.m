@@ -14,17 +14,6 @@
 @synthesize magnetLink;
 @synthesize url;
 @synthesize seeders;
-
-- (id)init {
-    self = [super init];
-    if (self) {
-        title = @"Hola";
-        magnetLink = @"Link magnet";
-        url = @"URL";
-        seeders = 486;
-    }
-    
-    return self;
-}
+@synthesize leechers;
 
 @end

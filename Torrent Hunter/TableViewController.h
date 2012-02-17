@@ -17,12 +17,14 @@
     IBOutlet NSProgressIndicator *progressGear;
     ParseWeb *parseTPB;
     NSMutableArray *list;
+    NSMutableArray *recentSearches;
 }
 
 @property (nonatomic, retain) ParseWeb *parseTPB;
 
 - (IBAction)search:(id)sender;
 - (void)doubleClick:(id)sender;
+- (void)showAlertError:(NSString *)error;
 - (void)loadDatainTableView;
 
 @end

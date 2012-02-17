@@ -11,7 +11,6 @@
 			<string key="NS.object.0">1938</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
-			<string>NSUserDefaultsController</string>
 			<string>NSScroller</string>
 			<string>NSTableHeaderView</string>
 			<string>NSMenuItem</string>
@@ -430,7 +429,8 @@
 									<int key="NSPeriodicDelay">400</int>
 									<int key="NSPeriodicInterval">75</int>
 								</object>
-								<int key="NSMaximumRecents">255</int>
+								<int key="NSMaximumRecents">5</int>
+								<bool key="NSSendsWholeSearchString">YES</bool>
 							</object>
 						</object>
 						<object class="NSTextField" id="628715797">
@@ -486,14 +486,13 @@
 												<string key="NSFrameSize">{818, 17}</string>
 												<reference key="NSSuperview" ref="561764370"/>
 												<reference key="NSWindow"/>
+												<reference key="NSNextKeyView" ref="60322131"/>
 												<reference key="NSTableView" ref="4378611"/>
 											</object>
-											<object class="_NSCornerView" key="NSCornerView" id="825774470">
-												<reference key="NSNextResponder" ref="767240489"/>
+											<object class="_NSCornerView" key="NSCornerView">
+												<nil key="NSNextResponder"/>
 												<int key="NSvFlags">-2147483392</int>
 												<string key="NSFrame">{{224, 0}, {16, 17}}</string>
-												<reference key="NSSuperview" ref="767240489"/>
-												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="60322131"/>
 												<int key="NSViewLayerContentsRedrawPolicy">2</int>
 												<string key="NSReuseIdentifierKey">_NS:1833</string>
@@ -656,12 +655,11 @@
 									<reference key="NSBGColor" ref="285134540"/>
 									<int key="NScvFlags">4</int>
 								</object>
-								<reference ref="825774470"/>
 							</array>
 							<string key="NSFrame">{{20, 20}, {820, 532}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
+							<reference key="NSNextKeyView" ref="561764370"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<string key="NSReuseIdentifierKey">_NS:1824</string>
 							<int key="NSsFlags">133682</int>
@@ -669,7 +667,6 @@
 							<reference key="NSHScroller" ref="276232669"/>
 							<reference key="NSContentView" ref="60322131"/>
 							<reference key="NSHeaderClipView" ref="561764370"/>
-							<reference key="NSCornerView" ref="825774470"/>
 							<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
 						</object>
 						<object class="NSProgressIndicator" id="397484644">
@@ -702,9 +699,6 @@
 			</object>
 			<object class="NSCustomObject" id="976324537">
 				<string key="NSClassName">AppDelegate</string>
-			</object>
-			<object class="NSUserDefaultsController" id="797558149">
-				<bool key="NSSharedInstance">YES</bool>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -892,6 +886,14 @@
 						<reference key="destination" ref="397484644"/>
 					</object>
 					<int key="connectionID">643</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">search:</string>
+						<reference key="source" ref="1012312643"/>
+						<reference key="destination" ref="944741371"/>
+					</object>
+					<int key="connectionID">730</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1178,11 +1180,6 @@
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">641</int>
-						<reference key="object" ref="797558149"/>
-						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">647</int>
 						<reference key="object" ref="481677831"/>
 						<array class="NSMutableArray" key="children">
@@ -1307,7 +1304,6 @@
 				<string key="628.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="629.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="639.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="641.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="647.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="648.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="649.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1324,7 +1320,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">729</int>
+			<int key="maxID">730</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

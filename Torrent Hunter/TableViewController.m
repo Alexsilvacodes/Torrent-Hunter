@@ -16,16 +16,17 @@
     self = [super init];
     if (self) {
         list = [[NSMutableArray alloc] init];
+        recentSearches = [[NSMutableArray alloc] init];
     }
     
     return self;
 }
 
 - (void)awakeFromNib {
+    [searchField setRecentSearches:recentSearches];
     [torrentTableView setTarget:self];
     [torrentTableView setDoubleAction:NSSelectorFromString(@"doubleClick:")];
 }
-
 
 - (IBAction)search:(id)sender {
     /* Operation queue */
@@ -41,18 +42,33 @@
 - (void)doubleClick:(id)sender {
     NSInteger i = [torrentTableView clickedRow];
     NSURL *magnet = [NSURL URLWithString:[[list objectAtIndex:i] magnetLink]];
-    /* NSURLRequest *request = [NSURLRequest requestWithURL:magnet];
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self]; */
     [[NSWorkspace sharedWorkspace] openURL:magnet];
 }
 
-- (void)loadDatainTableView {
-    NSString *searchValue = @"http://thepiratebay.se/search/";
-    id torrents = nil;
+- (void)showAlertError:(NSString *)error {
     // Alert dialogs declaration
     NSAlert *alertNoFinds = [NSAlert alertWithMessageText:@"" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"No se han encontrado resultados para su búsqueda"];
     NSAlert *alertNoConnection = [NSAlert alertWithMessageText:@"" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Error en la conexión con el servidor"];
     NSAlert *alertVoid = [NSAlert alertWithMessageText:@"" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"El campo de búsqueda está vacio"];
+    
+    if ([error isEqualTo:@"void"]) {
+        NSLog(@"Campo de busqueda vacío");
+        [alertVoid beginSheetModalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
+    }
+    else if ([error isEqualTo:@"-1"]) {
+        NSLog(@"Error de busqueda");
+        [alertNoFinds beginSheetModalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
+    }
+    else if ([error isEqualTo:@"-2"]) {
+        NSLog(@"Error de conexion");
+        [alertNoConnection beginSheetModalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
+    }
+}
+
+- (void)loadDatainTableView {
+    NSString *searchValue = @"http://thepiratebay.se/search/";
+    NSString *error = [[NSString alloc] init];
+    id torrents = nil;
     
     // Do the parse
     searchValue = [searchValue stringByAppendingFormat:[searchField stringValue]];
@@ -61,31 +77,27 @@
     
     // if not void searchField, not void torrents Array or not connection error
     if ([[searchField stringValue] isNotEqualTo:@""]){
-        torrents = [parseTPB loadHTMLbyURL:searchValue];
+        torrents = [parseTPB loadHTMLbyURL:[searchValue stringByReplacingOccurrencesOfString:@" " withString:@"%20"]];
         [list removeAllObjects];
+        
         if ([torrents isNotEqualTo:@"-1"] && [torrents isNotEqualTo:@"-2"]){
             for (Torrent *tor in torrents){
                 [list addObject:tor];
-                [progressGear incrementBy:10];
             }
+            [recentSearches addObject:searchValue];
             [torrentTableView reloadData];
-            
         }
-        else if ([torrents isEqualTo:@"-1"]){
-            [alertNoFinds beginSheetModalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
-            [list removeAllObjects];
-            NSLog(@"No existe resultado");
-        }
-        else{
-            [alertNoConnection beginSheetModalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
-            [list removeAllObjects];
-            NSLog(@"Error conexion");
+        else {
+            error = torrents;
+            [self performSelectorOnMainThread:@selector(showAlertError:) withObject:error waitUntilDone:NO];
         }
     }
     else{
-        [alertVoid beginSheetModalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
+        error = @"void";
+        [self performSelectorOnMainThread:@selector(showAlertError:) withObject:error waitUntilDone:NO];
     }
     [progressGear stopAnimation:self];
+    
 }
 
 #pragma mark TableView methods

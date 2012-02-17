@@ -19,45 +19,49 @@
     NSError *error = nil;
     torrents = [[NSMutableArray alloc] init];
     @try {
-        NSURL *url = [NSURL URLWithString:urlString];
+        NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         parser = [[HTMLParser alloc] initWithContentsOfURL:url error:&error];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"Excepcion cogida: %@",exception);
-        return @"-1";
-    }
     
-    if (error) {
-        NSLog(@"Error: %@", error);
-        return @"-2";
-    }
     
-    HTMLNode *bodyNode = [parser body];
-    HTMLNode *tableNode = [bodyNode findChildWithAttribute:@"id" matchingName:@"searchResult" allowPartial:FALSE];
-    NSArray *trNodes = [tableNode findChildTags:@"tr"];
-    
-    if (trNodes.count<1) {
-        return @"-1";
-    }
-    else{
-        for (HTMLNode *trNode in trNodes){
-            if (![[trNode getAttributeNamed:@"class"] isEqualToString:@"header"]) {
-                Torrent *current = [[Torrent alloc] init];
-                HTMLNode *titleNode = [trNode findChildWithAttribute:@"class" matchingName:@"detLink" allowPartial:FALSE];
-                HTMLNode *magnetNode = [trNode findChildWithAttribute:@"href" matchingName:@"magnet" allowPartial:TRUE];
-                NSArray *tdNodes = [trNode findChildTags:@"td"];
-                NSArray *aNodes = [trNode findChildTags:@"a"];
-                
-                [current setTitle:[titleNode contents]];
-                [current setMagnetLink:[magnetNode getAttributeNamed:@"href"]];
-                [current setUrl:[[aNodes objectAtIndex:4] getAttributeNamed:@"href"]];
-                [current setSeeders:[[[tdNodes objectAtIndex:2] contents] intValue]];
-                [current setLeechers:[[[tdNodes objectAtIndex:3] contents] intValue]];
-                [torrents addObject:current];
-            }
+        if (error) {
+            [NSException raise:@"ConectionError" format:@""];
         }
         
-        return torrents;
+        HTMLNode *bodyNode = [parser body];
+        HTMLNode *tableNode = [bodyNode findChildWithAttribute:@"id" matchingName:@"searchResult" allowPartial:FALSE];
+        NSArray *trNodes = [tableNode findChildTags:@"tr"];
+        
+        if (trNodes.count<1) {
+            [NSException raise:@"NoSearchResult" format:@""];
+        }
+        else{
+            for (HTMLNode *trNode in trNodes){
+                if (![[trNode getAttributeNamed:@"class"] isEqualToString:@"header"]) {
+                    Torrent *current = [[Torrent alloc] init];
+                    HTMLNode *titleNode = [trNode findChildWithAttribute:@"class" matchingName:@"detLink" allowPartial:FALSE];
+                    HTMLNode *magnetNode = [trNode findChildWithAttribute:@"href" matchingName:@"magnet" allowPartial:TRUE];
+                    NSArray *tdNodes = [trNode findChildTags:@"td"];
+                    NSArray *aNodes = [trNode findChildTags:@"a"];
+                    
+                    [current setTitle:[titleNode contents]];
+                    [current setMagnetLink:[magnetNode getAttributeNamed:@"href"]];
+                    [current setUrl:[[aNodes objectAtIndex:4] getAttributeNamed:@"href"]];
+                    [current setSeeders:[[[tdNodes objectAtIndex:2] contents] intValue]];
+                    [current setLeechers:[[[tdNodes objectAtIndex:3] contents] intValue]];
+                    [torrents addObject:current];
+                }
+            }
+            
+            return torrents;
+        }
+    }
+    @catch (NSException *exception) {
+        if ([exception isLike:@"ConnectionError"]) {
+            return @"-2";
+        }
+        else {
+            return @"-1";
+        }
     }
 }
 

@@ -13,6 +13,8 @@
 @private
     IBOutlet NSTableView *torrentTableView;
     IBOutlet NSSearchField *searchField;
+    IBOutlet NSWindow *window;
+    IBOutlet NSProgressIndicator *progressGear;
     ParseWeb *parseTPB;
     NSMutableArray *list;
 }
@@ -20,5 +22,7 @@
 @property (nonatomic, retain) ParseWeb *parseTPB;
 
 - (IBAction)search:(id)sender;
+- (void)doubleClick:(id)sender;
+- (void)loadDatainTableView;
 
 @end

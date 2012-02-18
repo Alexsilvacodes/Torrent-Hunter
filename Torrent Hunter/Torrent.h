@@ -13,6 +13,9 @@
     NSString *title;
     NSString *magnetLink;
     NSString *url;
+    NSString *description;
+    NSString *userURL;
+    NSString *userName;
     int seeders;
     int leechers;
 }
@@ -20,6 +23,9 @@
 @property (copy) NSString *title;
 @property (copy) NSString *magnetLink;
 @property (copy) NSString *url;
+@property (copy) NSString *description;
+@property (copy) NSString *userURL;
+@property (copy) NSString *userName;
 @property int seeders;
 @property int leechers;
 

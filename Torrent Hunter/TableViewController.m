@@ -11,6 +11,7 @@
 
 @implementation TableViewController
 @synthesize parseTPB;
+@synthesize popover;
 
 - (id)init {
     self = [super init];
@@ -25,6 +26,7 @@
 - (void)awakeFromNib {
     [searchField setRecentSearches:recentSearches];
     [torrentTableView setTarget:self];
+    [torrentTableView setAction:NSSelectorFromString(@"showPopover:")];
     [torrentTableView setDoubleAction:NSSelectorFromString(@"doubleClick:")];
 }
 
@@ -40,62 +42,92 @@
 }
 
 - (void)doubleClick:(id)sender {
-    NSInteger i = [torrentTableView clickedRow];
-    NSURL *magnet = [NSURL URLWithString:[[list objectAtIndex:i] magnetLink]];
-    [[NSWorkspace sharedWorkspace] openURL:magnet];
+    if ([list count] > 0) {
+        NSInteger i = [torrentTableView clickedRow];
+        NSURL *magnet = [NSURL URLWithString:[[list objectAtIndex:i] magnetLink]];
+        [[NSWorkspace sharedWorkspace] openURL:magnet];
+    }
+}
+
+- (IBAction)showPopover:(id)sender {
+    if ([list count] > 0) {
+        NSInteger i = [torrentTableView selectedRow];
+        NSString *desc = [[NSString alloc] initWithString:[[list objectAtIndex:i] description]];
+        NSString *user = [[NSString alloc] initWithString:[[list objectAtIndex:i] userName]];
+        clicked = i;
+        [botonUser setToolTip:user];
+        [descriptionField setStringValue:desc];
+        [popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMinXEdge];
+    }
+}
+
+- (IBAction)showInWeb:(id)sender {
+    NSString *url = @"http://thepiratebay.se";
+    NSString *torrent = [[NSString alloc] initWithString:[[list objectAtIndex:clicked] url]];
+    NSURL *urlTorrent = [[NSURL alloc] initWithString:[url stringByAppendingString:torrent]];
+    [[NSWorkspace sharedWorkspace] openURL:urlTorrent];
+}
+
+- (IBAction)showUserInWeb:(id)sender {
+    NSString *url = @"http://thepiratebay.se";
+    NSString *user = [[NSString alloc] initWithString:[[list objectAtIndex:clicked] userURL]];
+    NSURL *urlUser = [[NSURL alloc] initWithString:[url stringByAppendingString:user]];
+    [[NSWorkspace sharedWorkspace] openURL:urlUser];
 }
 
 - (void)showAlertError:(NSString *)error {
-    // Alert dialogs declaration
-    NSAlert *alertNoFinds = [NSAlert alertWithMessageText:@"" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"No se han encontrado resultados para su búsqueda"];
-    NSAlert *alertNoConnection = [NSAlert alertWithMessageText:@"" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Error en la conexión con el servidor"];
-    NSAlert *alertVoid = [NSAlert alertWithMessageText:@"" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"El campo de búsqueda está vacio"];
-    
-    if ([error isEqualTo:@"void"]) {
-        NSLog(@"Campo de busqueda vacío");
-        [alertVoid beginSheetModalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
-    }
-    else if ([error isEqualTo:@"-1"]) {
+    NSTimer *timer;
+    if ([error isEqualTo:@"-1"]) {
+        [errorLabel setStringValue:@"No se han encontrado resultados"];
+        timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(clearLabel) userInfo:nil repeats:NO];
         NSLog(@"Error de busqueda");
-        [alertNoFinds beginSheetModalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
     }
     else if ([error isEqualTo:@"-2"]) {
+        [errorLabel setStringValue:@"Error de conexión con el servidor"];
+        timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(clearLabel) userInfo:nil repeats:NO];
         NSLog(@"Error de conexion");
-        [alertNoConnection beginSheetModalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
     }
 }
 
+- (void)clearLabel {
+    [errorLabel setStringValue:@""];
+}
+
 - (void)loadDatainTableView {
-    NSString *searchValue = @"http://thepiratebay.se/search/";
+    NSString *url = @"http://thepiratebay.se/search/";
     NSString *error = [[NSString alloc] init];
+    NSString *toolTip = @"Resultados de: ";
     id torrents = nil;
     
     // Do the parse
-    searchValue = [searchValue stringByAppendingFormat:[searchField stringValue]];
+    NSString *searchValue = [searchField stringValue];
+    NSString *searchString = [url stringByAppendingFormat:searchValue];
     parseTPB = [[ParseWeb alloc] init];
+    [self clearLabel];
     [progressGear startAnimation:self];
     
     // if not void searchField, not void torrents Array or not connection error
-    if ([[searchField stringValue] isNotEqualTo:@""]){
-        torrents = [parseTPB loadHTMLbyURL:[searchValue stringByReplacingOccurrencesOfString:@" " withString:@"%20"]];
-        [list removeAllObjects];
-        
-        if ([torrents isNotEqualTo:@"-1"] && [torrents isNotEqualTo:@"-2"]){
-            for (Torrent *tor in torrents){
-                [list addObject:tor];
-            }
+    torrents = [parseTPB loadHTMLbyURL:[searchString stringByReplacingOccurrencesOfString:@" " withString:@"%20"]];
+    [list removeAllObjects];
+    
+    if ([torrents isNotEqualTo:@"-1"] && [torrents isNotEqualTo:@"-2"] && [torrents isNotEqualTo:@"void"]){
+        for (Torrent *tor in torrents){
+            [list addObject:tor];
+        }
+        /*if ([searchValue rangeOfString:@" "].location == NSNotFound || [searchValue rangeOfString:@"%20"].location == NSNotFound) {
             [recentSearches addObject:searchValue];
-            [torrentTableView reloadData];
-        }
-        else {
-            error = torrents;
-            [self performSelectorOnMainThread:@selector(showAlertError:) withObject:error waitUntilDone:NO];
-        }
+        }*/
+        [torrentTableView setToolTip:[toolTip stringByAppendingString:searchValue]];
+        [torrentTableView reloadData];
     }
-    else{
-        error = @"void";
+    else {
+        error = torrents;
+        [list removeAllObjects];
+        [torrentTableView reloadData];
+        [torrentTableView setToolTip:@""];
         [self performSelectorOnMainThread:@selector(showAlertError:) withObject:error waitUntilDone:NO];
     }
+    [searchField setStringValue:@""];
     [progressGear stopAnimation:self];
     
 }

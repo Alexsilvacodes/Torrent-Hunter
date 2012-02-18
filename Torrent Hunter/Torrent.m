@@ -13,6 +13,9 @@
 @synthesize title;
 @synthesize magnetLink;
 @synthesize url;
+@synthesize description;
+@synthesize userURL;
+@synthesize userName;
 @synthesize seeders;
 @synthesize leechers;
 

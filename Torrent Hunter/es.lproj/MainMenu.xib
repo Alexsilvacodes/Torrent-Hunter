@@ -490,13 +490,15 @@
 												<string key="NSFrameSize">{837, 17}</string>
 												<reference key="NSSuperview" ref="561764370"/>
 												<reference key="NSWindow"/>
-												<reference key="NSNextKeyView" ref="60322131"/>
+												<reference key="NSNextKeyView" ref="877291210"/>
 												<reference key="NSTableView" ref="4378611"/>
 											</object>
-											<object class="_NSCornerView" key="NSCornerView">
-												<nil key="NSNextResponder"/>
+											<object class="_NSCornerView" key="NSCornerView" id="877291210">
+												<reference key="NSNextResponder" ref="767240489"/>
 												<int key="NSvFlags">-2147483392</int>
 												<string key="NSFrame">{{224, 0}, {16, 17}}</string>
+												<reference key="NSSuperview" ref="767240489"/>
+												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="60322131"/>
 												<int key="NSViewLayerContentsRedrawPolicy">2</int>
 												<string key="NSReuseIdentifierKey">_NS:1833</string>
@@ -686,6 +688,7 @@
 									<reference key="NSBGColor" ref="285134540"/>
 									<int key="NScvFlags">4</int>
 								</object>
+								<reference ref="877291210"/>
 							</array>
 							<string key="NSFrame">{{11, 11}, {839, 550}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
@@ -698,6 +701,7 @@
 							<reference key="NSHScroller" ref="276232669"/>
 							<reference key="NSContentView" ref="60322131"/>
 							<reference key="NSHeaderClipView" ref="561764370"/>
+							<reference key="NSCornerView" ref="877291210"/>
 							<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
 						</object>
 						<object class="NSProgressIndicator" id="397484644">
@@ -1112,14 +1116,6 @@
 						<reference key="destination" ref="397484644"/>
 					</object>
 					<int key="connectionID">643</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">search:</string>
-						<reference key="source" ref="1012312643"/>
-						<reference key="destination" ref="944741371"/>
-					</object>
-					<int key="connectionID">730</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">

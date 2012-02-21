@@ -107,8 +107,9 @@
     [progressGear startAnimation:self];
     
     // if not void searchField, not void torrents Array or not connection error
-    torrents = [parseTPB loadHTMLbyURL:[searchString stringByReplacingOccurrencesOfString:@" " withString:@"%20"]];
+    torrents = [parseTPB loadHTMLbyURL:searchString];
     [list removeAllObjects];
+    NSLog(@"%@",[searchString stringByReplacingOccurrencesOfString:@" " withString:@"%20"]);
     
     if ([torrents isNotEqualTo:@"-1"] && [torrents isNotEqualTo:@"-2"] && [torrents isNotEqualTo:@"void"]){
         for (Torrent *tor in torrents){

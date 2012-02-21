@@ -42,12 +42,7 @@
         }
         else{
             resultString = [spanNode contents];
-            NSLog(@"%@",[NSNumber numberWithLong:[trNodes count]]);
             for (HTMLNode *trNode in trNodes){
-                //NSLog(@"%@",[[trNode findChildWithAttribute:@"class" matchingName:@"detLink" allowPartial:FALSE] contents]);
-            }
-            for (HTMLNode *trNode in trNodes){
-                NSLog(@"%@",[[trNode findChildWithAttribute:@"class" matchingName:@"detLink" allowPartial:FALSE] contents]);
                 if (![[trNode getAttributeNamed:@"class"] isEqualToString:@"header"]) {
                     Torrent *current = [[Torrent alloc] init];
                     HTMLNode *titleNode = [trNode findChildWithAttribute:@"class" matchingName:@"detLink" allowPartial:FALSE];

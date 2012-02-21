@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		FA0E3FB614F2CB5B00DBD9DB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0E3FB514F2CB5B00DBD9DB /* WebKit.framework */; };
 		FA28C29514DB30770026F771 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA28C29414DB30770026F771 /* Cocoa.framework */; };
-		FA28C29F14DB30770026F771 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA28C29D14DB30770026F771 /* InfoPlist.strings */; };
 		FA28C2A114DB30770026F771 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FA28C2A014DB30770026F771 /* main.m */; };
-		FA28C2A514DB30770026F771 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = FA28C2A314DB30770026F771 /* Credits.rtf */; };
 		FA28C2A814DB30770026F771 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA28C2A714DB30770026F771 /* AppDelegate.m */; };
-		FA28C2AB14DB30770026F771 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA28C2A914DB30770026F771 /* MainMenu.xib */; };
+		FA39972A14F3E33A001334C0 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = FA39972614F3E33A001334C0 /* Credits.rtf */; };
+		FA39972B14F3E33A001334C0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA39972814F3E33A001334C0 /* InfoPlist.strings */; };
+		FA39972E14F3E342001334C0 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA39972C14F3E342001334C0 /* MainMenu.xib */; };
 		FA6B9C9214EC0AA3006DD9D0 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6B9C8F14EC0AA3006DD9D0 /* HTMLNode.m */; };
 		FA6B9C9314EC0AA3006DD9D0 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6B9C9114EC0AA3006DD9D0 /* HTMLParser.m */; };
 		FA6B9C9514EC0AE5006DD9D0 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6B9C9414EC0AE5006DD9D0 /* libxml2.dylib */; };
@@ -35,6 +35,9 @@
 		FA28C2A614DB30770026F771 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FA28C2A714DB30770026F771 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		FA28C2B214DB30770026F771 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		FA39972714F3E33A001334C0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = es; path = es.lproj/Credits.rtf; sourceTree = "<group>"; };
+		FA39972914F3E33A001334C0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FA39972D14F3E342001334C0 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = "Torrent Hunter/es.lproj/MainMenu.xib"; sourceTree = "<group>"; };
 		FA6B9C8E14EC0AA3006DD9D0 /* HTMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLNode.h; sourceTree = "<group>"; };
 		FA6B9C8F14EC0AA3006DD9D0 /* HTMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLNode.m; sourceTree = "<group>"; };
 		FA6B9C9014EC0AA3006DD9D0 /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLParser.h; sourceTree = "<group>"; };
@@ -42,9 +45,6 @@
 		FA6B9C9414EC0AE5006DD9D0 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		FA6B9C9614EC0B51006DD9D0 /* ParseWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseWeb.h; sourceTree = "<group>"; };
 		FA6B9C9714EC0B51006DD9D0 /* ParseWeb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseWeb.m; sourceTree = "<group>"; };
-		FA9AD6F014E495F40058026D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = "/Users/Alex/Dropbox/Proyectos/Torrent Hunter/Torrent Hunter/es.lproj/InfoPlist.strings"; sourceTree = "<absolute>"; };
-		FA9AD6F114E495F40058026D /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = "/Users/Alex/Dropbox/Proyectos/Torrent Hunter/Torrent Hunter/es.lproj/MainMenu.xib"; sourceTree = "<absolute>"; };
-		FA9AD6F214E495F40058026D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = es; path = "/Users/Alex/Dropbox/Proyectos/Torrent Hunter/Torrent Hunter/es.lproj/Credits.rtf"; sourceTree = "<absolute>"; };
 		FAE4E0BD14E178360022AF4F /* Torrent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Torrent.h; sourceTree = "<group>"; };
 		FAE4E0BE14E178360022AF4F /* Torrent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Torrent.m; sourceTree = "<group>"; };
 		FAE4E0C014E1ECBA0022AF4F /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
@@ -123,11 +123,11 @@
 		FA28C29B14DB30770026F771 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FA39972614F3E33A001334C0 /* Credits.rtf */,
+				FA39972814F3E33A001334C0 /* InfoPlist.strings */,
 				FA28C29C14DB30770026F771 /* Torrent Hunter-Info.plist */,
-				FA28C29D14DB30770026F771 /* InfoPlist.strings */,
 				FA28C2A014DB30770026F771 /* main.m */,
 				FA28C2A214DB30770026F771 /* Torrent Hunter-Prefix.pch */,
-				FA28C2A314DB30770026F771 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
 			path = "Torrent Hunter";
@@ -148,9 +148,9 @@
 		FAE4E0BC14E177BD0022AF4F /* Other sources */ = {
 			isa = PBXGroup;
 			children = (
+				FA39972C14F3E342001334C0 /* MainMenu.xib */,
 				FA6B9C8C14EC0A25006DD9D0 /* HTMLParser */,
 				FA28C29B14DB30770026F771 /* Supporting Files */,
-				FA28C2A914DB30770026F771 /* MainMenu.xib */,
 			);
 			name = "Other sources";
 			sourceTree = "<group>";
@@ -189,6 +189,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				es,
 			);
 			mainGroup = FA28C28514DB30770026F771;
 			productRefGroup = FA28C29114DB30770026F771 /* Products */;
@@ -205,9 +206,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA28C29F14DB30770026F771 /* InfoPlist.strings in Resources */,
-				FA28C2A514DB30770026F771 /* Credits.rtf in Resources */,
-				FA28C2AB14DB30770026F771 /* MainMenu.xib in Resources */,
+				FA39972A14F3E33A001334C0 /* Credits.rtf in Resources */,
+				FA39972B14F3E33A001334C0 /* InfoPlist.strings in Resources */,
+				FA39972E14F3E342001334C0 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,29 +232,28 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		FA28C29D14DB30770026F771 /* InfoPlist.strings */ = {
+		FA39972614F3E33A001334C0 /* Credits.rtf */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FA9AD6F014E495F40058026D /* es */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		FA28C2A314DB30770026F771 /* Credits.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FA9AD6F214E495F40058026D /* es */,
+				FA39972714F3E33A001334C0 /* es */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
-		FA28C2A914DB30770026F771 /* MainMenu.xib */ = {
+		FA39972814F3E33A001334C0 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FA9AD6F114E495F40058026D /* es */,
+				FA39972914F3E33A001334C0 /* es */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		FA39972C14F3E342001334C0 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA39972D14F3E342001334C0 /* es */,
 			);
 			name = MainMenu.xib;
-			path = "Torrent Hunter";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

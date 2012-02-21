@@ -69,7 +69,6 @@
         [descriptionField setStringValue:desc];
         [popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMinYEdge];
     }
-    //NSLog(@"%@",[[NSNumber numberWithLong:[list count]] stringValue]);
 }
 
 - (IBAction)showInWeb:(id)sender {

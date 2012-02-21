@@ -10,6 +10,7 @@
 #import "Torrent.h"
 
 @implementation TableViewController
+
 @synthesize parseTPB;
 @synthesize popover;
 
@@ -26,7 +27,7 @@
 - (void)awakeFromNib {
     [searchField setRecentSearches:recentSearches];
     [torrentTableView setTarget:self];
-    [torrentTableView setAction:NSSelectorFromString(@"showPopover:")];
+    [progressWeb setUsesThreadedAnimation:YES];
     [torrentTableView setDoubleAction:NSSelectorFromString(@"doubleClick:")];
 }
 
@@ -49,30 +50,48 @@
     }
 }
 
+- (void)clearWebView:(id)sender {
+    [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]]; 
+}
+
 - (IBAction)showPopover:(id)sender {
-    if ([list count] > 0) {
+    if ([list count] >0 && [torrentTableView selectedRow] != -1 ) {
         NSInteger i = [torrentTableView selectedRow];
         NSString *desc = [[NSString alloc] initWithString:[[list objectAtIndex:i] description]];
         NSString *user = [[NSString alloc] initWithString:[[list objectAtIndex:i] userName]];
         clicked = i;
-        [botonUser setToolTip:user];
+        if ([[[list objectAtIndex:i] userURL] isEqualTo:@"NoUser"]) {
+            [botonUser setEnabled:NO];
+        }
+        else {
+            [botonUser setToolTip:user];
+        }
         [descriptionField setStringValue:desc];
-        [popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMinXEdge];
+        [popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMinYEdge];
     }
+    //NSLog(@"%@",[[NSNumber numberWithLong:[list count]] stringValue]);
 }
 
 - (IBAction)showInWeb:(id)sender {
     NSString *url = @"http://thepiratebay.se";
     NSString *torrent = [[NSString alloc] initWithString:[[list objectAtIndex:clicked] url]];
     NSURL *urlTorrent = [[NSURL alloc] initWithString:[url stringByAppendingString:torrent]];
-    [[NSWorkspace sharedWorkspace] openURL:urlTorrent];
+    [windowWeb setIsVisible:YES];
+    [progressWeb startAnimation:self];
+    [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:urlTorrent]];
+    [progressWeb stopAnimation:self];
+    //[[NSWorkspace sharedWorkspace] openURL:urlTorrent];
 }
 
 - (IBAction)showUserInWeb:(id)sender {
     NSString *url = @"http://thepiratebay.se";
     NSString *user = [[NSString alloc] initWithString:[[list objectAtIndex:clicked] userURL]];
     NSURL *urlUser = [[NSURL alloc] initWithString:[url stringByAppendingString:user]];
-    [[NSWorkspace sharedWorkspace] openURL:urlUser];
+    [windowWeb setIsVisible:YES];
+    [progressWeb startAnimation:self];
+    [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:urlUser]];
+    [progressWeb stopAnimation:self];
+    //[[NSWorkspace sharedWorkspace] openURL:urlUser];
 }
 
 - (void)showAlertError:(NSString *)error {
@@ -96,6 +115,7 @@
 - (void)loadDatainTableView {
     NSString *url = @"http://thepiratebay.se/search/";
     NSString *error = [[NSString alloc] init];
+    NSString *stringLabelNTorrent = [[NSString alloc] init];
     NSString *toolTip = @"Resultados de: ";
     id torrents = nil;
     
@@ -109,21 +129,27 @@
     // if not void searchField, not void torrents Array or not connection error
     torrents = [parseTPB loadHTMLbyURL:searchString];
     [list removeAllObjects];
-    NSLog(@"%@",[searchString stringByReplacingOccurrencesOfString:@" " withString:@"%20"]);
     
     if ([torrents isNotEqualTo:@"-1"] && [torrents isNotEqualTo:@"-2"] && [torrents isNotEqualTo:@"void"]){
         for (Torrent *tor in torrents){
             [list addObject:tor];
         }
-        /*if ([searchValue rangeOfString:@" "].location == NSNotFound || [searchValue rangeOfString:@"%20"].location == NSNotFound) {
-            [recentSearches addObject:searchValue];
-        }*/
-        [torrentTableView setToolTip:[toolTip stringByAppendingString:searchValue]];
+        /* Rellenar el tooltip de la tabla */
+        [torrentTableView setToolTip:[toolTip stringByAppendingString:[parseTPB resultString]]];
+        /* Rellenar el label inferior */
+        stringLabelNTorrent = [parseTPB resultString];
+        stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:@" - "];
+        stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:[[NSNumber numberWithLong:[list count]] stringValue]];
+        stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:@" resultados"];
+        [labelNTorrent setStringValue:stringLabelNTorrent];
+        /* Recargar los datos de la tabla */
         [torrentTableView reloadData];
     }
     else {
         error = torrents;
+        [labelNTorrent setStringValue:@""];
         [list removeAllObjects];
+        [recentSearches removeLastObject];
         [torrentTableView reloadData];
         [torrentTableView setToolTip:@""];
         [self performSelectorOnMainThread:@selector(showAlertError:) withObject:error waitUntilDone:NO];

@@ -11,11 +11,13 @@
 @class HTMLParser;
 
 @interface ParseWeb : NSObject {
+    NSString *resultString;
     NSMutableArray *torrents;
     HTMLParser *parser;
 }
 
 @property (readonly, retain) NSMutableArray *torrents;
+@property (copy) NSString *resultString;
 
 - (id)loadHTMLbyURL:(NSString *)urlString;
 

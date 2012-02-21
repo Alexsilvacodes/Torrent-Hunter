@@ -14,6 +14,7 @@
 @implementation ParseWeb
 
 @synthesize torrents;
+@synthesize resultString;
 
 - (id)loadHTMLbyURL:(NSString *)urlString {
     NSError *error = nil;
@@ -22,6 +23,7 @@
         if ([urlString isEqualTo:@"http://thepiratebay.se/search/"]){
             [NSException raise:@"VoidError" format:@""];
         }
+        NSLog(@"%@",[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         parser = [[HTMLParser alloc] initWithContentsOfURL:url error:&error];
 
@@ -39,16 +41,32 @@
             [NSException raise:@"NoSearchResult" format:@""];
         }
         else{
+            resultString = [spanNode contents];
+            NSLog(@"%@",[NSNumber numberWithLong:[trNodes count]]);
             for (HTMLNode *trNode in trNodes){
+                //NSLog(@"%@",[[trNode findChildWithAttribute:@"class" matchingName:@"detLink" allowPartial:FALSE] contents]);
+            }
+            for (HTMLNode *trNode in trNodes){
+                NSLog(@"%@",[[trNode findChildWithAttribute:@"class" matchingName:@"detLink" allowPartial:FALSE] contents]);
                 if (![[trNode getAttributeNamed:@"class"] isEqualToString:@"header"]) {
                     Torrent *current = [[Torrent alloc] init];
                     HTMLNode *titleNode = [trNode findChildWithAttribute:@"class" matchingName:@"detLink" allowPartial:FALSE];
                     HTMLNode *magnetNode = [trNode findChildWithAttribute:@"href" matchingName:@"magnet" allowPartial:TRUE];
                     HTMLNode *descNode = [trNode findChildTag:@"font"];
-                    HTMLNode *userNode = [descNode findChildTag:@"a"];
+                    if ([descNode findChildTag:@"i"]) {
+                        HTMLNode *userNode = [descNode findChildTag:@"i"];
+                        user = [userNode contents];
+                        [current setUserURL:@"NoUser"];
+                        [current setUserName:[userNode contents]];
+                    }
+                    else {
+                        HTMLNode *userNode = [descNode findChildTag:@"a"];
+                        user = [userNode contents];
+                        [current setUserURL:[userNode getAttributeNamed:@"href"]];
+                        [current setUserName:[userNode contents]];
+                    }
                     NSArray *tdNodes = [trNode findChildTags:@"td"];
                     NSArray *aNodes = [trNode findChildTags:@"a"];
-                    user = [userNode contents];
                     
                     [current setTitle:[titleNode contents]];
                     [current setMagnetLink:[magnetNode getAttributeNamed:@"href"]];
@@ -56,8 +74,7 @@
                     [current setSeeders:[[[tdNodes objectAtIndex:2] contents] intValue]];
                     [current setLeechers:[[[tdNodes objectAtIndex:3] contents] intValue]];
                     [current setDescription:[[descNode contents] stringByAppendingString:user]];
-                    [current setUserURL:[userNode getAttributeNamed:@"href"]];
-                    [current setUserName:[userNode contents]];
+                    
                     [torrents addObject:current];
                 }
             }

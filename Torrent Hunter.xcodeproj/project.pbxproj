@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA0E3FB614F2CB5B00DBD9DB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0E3FB514F2CB5B00DBD9DB /* WebKit.framework */; };
 		FA28C29514DB30770026F771 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA28C29414DB30770026F771 /* Cocoa.framework */; };
 		FA28C29F14DB30770026F771 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA28C29D14DB30770026F771 /* InfoPlist.strings */; };
 		FA28C2A114DB30770026F771 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FA28C2A014DB30770026F771 /* main.m */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA0E3FB514F2CB5B00DBD9DB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		FA28C29014DB30770026F771 /* Torrent Hunter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Torrent Hunter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA28C29414DB30770026F771 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		FA28C29714DB30770026F771 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -54,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA0E3FB614F2CB5B00DBD9DB /* WebKit.framework in Frameworks */,
 				FA6B9C9514EC0AE5006DD9D0 /* libxml2.dylib in Frameworks */,
 				FA28C29514DB30770026F771 /* Cocoa.framework in Frameworks */,
 			);
@@ -83,6 +86,7 @@
 		FA28C29314DB30770026F771 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FA0E3FB514F2CB5B00DBD9DB /* WebKit.framework */,
 				FA6B9C9414EC0AE5006DD9D0 /* libxml2.dylib */,
 				FA28C29414DB30770026F771 /* Cocoa.framework */,
 				FA28C2B214DB30770026F771 /* SenTestingKit.framework */,

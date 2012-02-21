@@ -62,8 +62,10 @@
         clicked = i;
         if ([[[list objectAtIndex:i] userURL] isEqualTo:@"NoUser"]) {
             [botonUser setEnabled:NO];
+            [botonUser setToolTip:user];
         }
         else {
+            [botonUser setEnabled:YES];
             [botonUser setToolTip:user];
         }
         [descriptionField setStringValue:desc];

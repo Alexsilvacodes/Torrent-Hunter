@@ -12,7 +12,7 @@
 @implementation TableViewController
 
 @synthesize parseTPB;
-@synthesize popover;
+@synthesize popoverTorrent;
 
 - (id)init {
     self = [super init];
@@ -36,7 +36,7 @@
     NSOperationQueue *threads = [NSOperationQueue new];
     
     /* Instance a NSInvocationOperation (subclass of NSOperation) */
-    NSInvocationOperation *task = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadDatainTableView) object:nil];
+    NSInvocationOperation *task = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadDatainTableView:) object:[sender identifier]];
     
     /* Add the operation to the queue */
     [threads addOperation:task];
@@ -69,42 +69,37 @@
             [botonUser setToolTip:user];
         }
         [descriptionField setStringValue:desc];
-        [popover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMinYEdge];
+        [popoverTorrent showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMinYEdge];
     }
+}
+
+- (void)showSettings:(id)sender {
 }
 
 - (IBAction)showInWeb:(id)sender {
     NSString *url = @"http://thepiratebay.se";
     NSString *torrent = [[NSString alloc] initWithString:[[list objectAtIndex:clicked] url]];
     NSURL *urlTorrent = [[NSURL alloc] initWithString:[url stringByAppendingString:torrent]];
-    [windowWeb setIsVisible:YES];
-    [progressWeb startAnimation:self];
-    [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:urlTorrent]];
-    [progressWeb stopAnimation:self];
-    //[[NSWorkspace sharedWorkspace] openURL:urlTorrent];
+    [[NSWorkspace sharedWorkspace] openURL:urlTorrent];
 }
 
 - (IBAction)showUserInWeb:(id)sender {
     NSString *url = @"http://thepiratebay.se";
     NSString *user = [[NSString alloc] initWithString:[[list objectAtIndex:clicked] userURL]];
     NSURL *urlUser = [[NSURL alloc] initWithString:[url stringByAppendingString:user]];
-    [windowWeb setIsVisible:YES];
-    [progressWeb startAnimation:self];
-    [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:urlUser]];
-    [progressWeb stopAnimation:self];
-    //[[NSWorkspace sharedWorkspace] openURL:urlUser];
+    [[NSWorkspace sharedWorkspace] openURL:urlUser];
 }
 
 - (void)showAlertError:(NSString *)error {
     NSTimer *timer;
     if ([error isEqualTo:@"-1"]) {
         [errorLabel setStringValue:@"No se han encontrado resultados"];
-        timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(clearLabel) userInfo:nil repeats:NO];
+        timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(clearLabel) userInfo:nil repeats:NO];
         NSLog(@"Error de busqueda");
     }
     else if ([error isEqualTo:@"-2"]) {
         [errorLabel setStringValue:@"Error de conexión con el servidor"];
-        timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(clearLabel) userInfo:nil repeats:NO];
+        timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(clearLabel) userInfo:nil repeats:NO];
         NSLog(@"Error de conexion");
     }
 }
@@ -113,7 +108,7 @@
     [errorLabel setStringValue:@""];
 }
 
-- (void)loadDatainTableView {
+- (void)loadDatainTableView:(NSString *)type {
     NSString *url = @"http://thepiratebay.se/search/";
     NSString *error = [[NSString alloc] init];
     NSString *stringLabelNTorrent = [[NSString alloc] init];
@@ -122,13 +117,16 @@
     
     // Do the parse
     NSString *searchValue = [searchField stringValue];
-    NSString *searchString = [url stringByAppendingFormat:searchValue];
+    NSString *searchString = [url stringByAppendingString:searchValue];
+    searchString = [searchString stringByAppendingString:@""];
     parseTPB = [[ParseWeb alloc] init];
     [self clearLabel];
     [progressGear startAnimation:self];
+    [searchField setEnabled:NO];
+    [botonSearch setEnabled:NO];
     
     // if not void searchField, not void torrents Array or not connection error
-    torrents = [parseTPB loadHTMLbyURL:searchString];
+    torrents = [parseTPB loadHTMLbyURLTPB:searchString];
     [list removeAllObjects];
     
     if ([torrents isNotEqualTo:@"-1"] && [torrents isNotEqualTo:@"-2"] && [torrents isNotEqualTo:@"void"]){
@@ -145,17 +143,21 @@
         [labelNTorrent setStringValue:stringLabelNTorrent];
         /* Recargar los datos de la tabla */
         [torrentTableView reloadData];
+        [torrentTableView setFocusedColumn:1];
     }
     else {
         error = torrents;
         [labelNTorrent setStringValue:@""];
         [list removeAllObjects];
+        [searchField setFocusRingType:NSFocusRingOnly];
         [recentSearches removeLastObject];
         [torrentTableView reloadData];
         [torrentTableView setToolTip:@""];
         [self performSelectorOnMainThread:@selector(showAlertError:) withObject:error waitUntilDone:NO];
     }
     [searchField setStringValue:@""];
+    [searchField setEnabled:YES];
+    [botonSearch setEnabled:YES];
     [progressGear stopAnimation:self];
     
 }

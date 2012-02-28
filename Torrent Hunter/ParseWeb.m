@@ -16,7 +16,7 @@
 @synthesize torrents;
 @synthesize resultString;
 
-- (id)loadHTMLbyURL:(NSString *)urlString {
+- (id)loadHTMLbyURLTPB:(NSString *)urlString {
     NSError *error = nil;
     torrents = [[NSMutableArray alloc] init];
     @try {
@@ -36,12 +36,20 @@
         HTMLNode *spanNode = [[bodyNode findChildTag:@"h2"] findChildTag:@"span"];
         NSArray *trNodes = [tableNode findChildTags:@"tr"];
         NSString *user = [NSString alloc];
-
-        if ([trNodes count]<1 || [[spanNode contents] rangeOfString:@"Torrents"].location != NSNotFound) {
+        
+        NSLog(@"%@",[[bodyNode findChildTag:@"h2"] contents]);
+        if ([trNodes count]<1 || [[spanNode contents] rangeOfString:@"Torrent"].location != NSNotFound) {
             [NSException raise:@"NoSearchResult" format:@""];
         }
         else{
             resultString = [spanNode contents];
+            
+            /* ------- Numero de paginas ------ */
+            
+            NSInteger numPages = [[[bodyNode findChildWithAttribute:@"align" matchingName:@"center" allowPartial:NO] contents] intValue];
+            
+            /* =============================== */
+            
             for (HTMLNode *trNode in trNodes){
                 if (![[trNode getAttributeNamed:@"class"] isEqualToString:@"header"]) {
                     Torrent *current = [[Torrent alloc] init];

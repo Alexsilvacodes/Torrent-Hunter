@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>TH.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>Torrent Hunter.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,6 +17,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>FA17936A14F690020080BBAF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>FA28C28F14DB30770026F771</key>
 		<dict>
 			<key>primary</key>

@@ -19,6 +19,7 @@
 @property (readonly, retain) NSMutableArray *torrents;
 @property (copy) NSString *resultString;
 
-- (id)loadHTMLbyURL:(NSString *)urlString;
+- (id)loadHTMLbyURLTPB:(NSString *)urlString;
+- (id)loadHTMLbyURLDem:(NSString *)urlString;
 
 @end

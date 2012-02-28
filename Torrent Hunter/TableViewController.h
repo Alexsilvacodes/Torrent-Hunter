@@ -23,6 +23,7 @@
     IBOutlet NSTextField *labelNTorrent;
     IBOutlet NSWindow *windowWeb;
     IBOutlet WebView *webView;
+    IBOutlet NSButton *botonSearch;
     NSInteger clicked;
     ParseWeb *parseTPB;
     NSMutableArray *list;
@@ -30,16 +31,17 @@
 }
 
 @property (nonatomic, retain) ParseWeb *parseTPB;
-@property (weak) IBOutlet NSPopover *popover;
+@property (weak) IBOutlet NSPopover *popoverTorrent;
 
 - (IBAction)search:(id)sender;
 - (IBAction)showPopover:(id)sender;
+- (IBAction)showSettings:(id)sender;
 - (IBAction)showInWeb:(id)sender;
 - (IBAction)showUserInWeb:(id)sender;
 - (IBAction)clearWebView:(id)sender;
 - (void)doubleClick:(id)sender;
 - (void)showAlertError:(NSString *)error;
 - (void)clearLabel;
-- (void)loadDatainTableView;
+- (void)loadDatainTableView:(NSString *)type;
 
 @end

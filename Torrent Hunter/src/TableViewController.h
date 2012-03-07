@@ -16,14 +16,12 @@
     IBOutlet NSSearchField *searchField;
     IBOutlet NSWindow *window;
     IBOutlet NSProgressIndicator *progressGear;
-    IBOutlet NSProgressIndicator *progressWeb;
     IBOutlet NSTextField *errorLabel;
     IBOutlet NSTextField *descriptionField;
-    IBOutlet NSButton *botonUser;
     IBOutlet NSTextField *labelNTorrent;
-    IBOutlet NSWindow *windowWeb;
-    IBOutlet WebView *webView;
+    IBOutlet NSButton *botonUser;
     IBOutlet NSButton *botonSearch;
+    IBOutlet NSButton *botonSettings;
     NSInteger clicked;
     ParseWeb *parseTPB;
     NSMutableArray *list;
@@ -35,10 +33,8 @@
 
 - (IBAction)search:(id)sender;
 - (IBAction)showPopover:(id)sender;
-- (IBAction)showSettings:(id)sender;
 - (IBAction)showInWeb:(id)sender;
 - (IBAction)showUserInWeb:(id)sender;
-- (IBAction)clearWebView:(id)sender;
 - (void)doubleClick:(id)sender;
 - (void)showAlertError:(NSString *)error;
 - (void)clearLabel;

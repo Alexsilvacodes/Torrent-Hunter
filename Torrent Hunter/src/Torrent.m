@@ -16,7 +16,9 @@
 @synthesize description;
 @synthesize userURL;
 @synthesize userName;
+@synthesize size;
 @synthesize seeders;
 @synthesize leechers;
+@synthesize source;
 
 @end

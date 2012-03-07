@@ -27,7 +27,6 @@
 - (void)awakeFromNib {
     [searchField setRecentSearches:recentSearches];
     [torrentTableView setTarget:self];
-    [progressWeb setUsesThreadedAnimation:YES];
     [torrentTableView setDoubleAction:NSSelectorFromString(@"doubleClick:")];
 }
 
@@ -50,10 +49,6 @@
     }
 }
 
-- (void)clearWebView:(id)sender {
-    [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]]; 
-}
-
 - (IBAction)showPopover:(id)sender {
     if ([list count] >0 && [torrentTableView selectedRow] != -1 ) {
         NSInteger i = [torrentTableView selectedRow];
@@ -71,9 +66,6 @@
         [descriptionField setStringValue:desc];
         [popoverTorrent showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMinYEdge];
     }
-}
-
-- (void)showSettings:(id)sender {
 }
 
 - (IBAction)showInWeb:(id)sender {
@@ -123,6 +115,7 @@
     [self clearLabel];
     [progressGear startAnimation:self];
     [searchField setEnabled:NO];
+    [botonSettings setEnabled:NO];
     [botonSearch setEnabled:NO];
     
     // if not void searchField, not void torrents Array or not connection error
@@ -130,6 +123,7 @@
     [list removeAllObjects];
     
     if ([torrents isNotEqualTo:@"-1"] && [torrents isNotEqualTo:@"-2"] && [torrents isNotEqualTo:@"void"]){
+        
         for (Torrent *tor in torrents){
             [list addObject:tor];
         }
@@ -157,6 +151,7 @@
     }
     [searchField setStringValue:@""];
     [searchField setEnabled:YES];
+    [botonSettings setEnabled:YES];
     [botonSearch setEnabled:YES];
     [progressGear stopAnimation:self];
     

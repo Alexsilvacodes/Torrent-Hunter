@@ -106,14 +106,6 @@
     id torrentsTPB = nil;
     id torrentsDem = nil;
     
-    // prueba string
-    //NSArray *array = [[NSArray alloc] initWithObjects:@"0", @"1", @"2", nil];
-    /*NSString *array = @"hola";
-    id idprueba = array;
-    if ([idprueba count]) {
-        NSLog(@"- Array -");
-    }*/
-    
     // Do the parse
     NSString *searchValue = [searchField stringValue];
     NSString *searchStringTPB = [urlTPB stringByAppendingString:searchValue];
@@ -171,9 +163,6 @@
         stringLabelNTorrent = @"Resultados para '";
         stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:searchValue];
         stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:@"' - "];
-        /*if (torrentsDem str) {
-            
-        }*/
         stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:[[NSNumber numberWithLong:[list count]] stringValue]];
         stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:@" resultados"];
         [labelNTorrent setStringValue:stringLabelNTorrent];
@@ -183,7 +172,6 @@
     }
     else {
         error = torrents;
-        NSLog(@"%@",error);
         [labelNTorrent setStringValue:@""];
         [list removeAllObjects];
         [searchField setFocusRingType:NSFocusRingOnly];

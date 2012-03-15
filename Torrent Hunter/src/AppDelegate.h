@@ -7,8 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <Sparkle/Sparkle.h>
+#import <Sparkle/SUUpdater.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate> {
+    IBOutlet SUUpdater *updater;
+}
 
 @property (assign) IBOutlet NSWindow *window;
 

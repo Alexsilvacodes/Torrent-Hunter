@@ -2,4 +2,12 @@
 <Bucket
    type = "1"
    version = "1.0">
+   <SymbolicBreakpoints>
+      <AddressBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         symbolName = "*0x00007fff5fc0106d">
+      </AddressBreakpoint>
+   </SymbolicBreakpoints>
 </Bucket>

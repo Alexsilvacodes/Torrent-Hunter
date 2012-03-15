@@ -26,7 +26,6 @@
         if ([urlString isEqualTo:@"http://thepiratebay.se/search/"]){
             [NSException raise:@"VoidError" format:@""];
         }
-        NSLog(@"%@",[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         parser = [[HTMLParser alloc] initWithContentsOfURL:url error:&error];
 
@@ -126,10 +125,9 @@
     NSError *error = nil;
     torrents = [[NSMutableArray alloc] init];
     @try {
-        if ([urlString isEqualTo:@"http://www.demonoid.me/files/?category=0&subcategory=All&quality=All&seeded=0&external=2&query=&uid=0&sort=S"]){
+        if ([urlString isEqualTo:@"http://www.demonoid.me/files/?to=0&uid=0&category=0&subcategory=0&language=0&seeded=0&quality=0&external=2&query=&sort=S"]){
             [NSException raise:@"VoidError" format:@""];
         }
-        NSLog(@"%@",[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         parser = [[HTMLParser alloc] initWithContentsOfURL:url error:&error];
         
@@ -179,7 +177,6 @@
         
         HTMLNode *fontErrorNode = [bodyNode findChildWithAttribute:@"size" matchingName:@"+2" allowPartial:NO];
         if ([[fontErrorNode contents] isEqualToString:@"Maintenance"]) {
-             NSLog(@"Error: %@",[fontErrorNode contents]);
             [NSException raise:@"ConectionError" format:@""];
         }
         else{

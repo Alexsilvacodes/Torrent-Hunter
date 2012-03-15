@@ -21,4 +21,21 @@
 @synthesize leechers;
 @synthesize source;
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        title = @"";
+        magnetLink = @"";
+        url = @"";
+        description = @"";
+        userURL = @"";
+        userName = @"";
+        size = @"";
+        seeders = 0;
+        leechers = 0;
+        source = nil;
+    }
+    return self;
+}
+
 @end

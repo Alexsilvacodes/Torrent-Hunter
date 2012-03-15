@@ -11,7 +11,7 @@
 
 @implementation TableViewController
 
-@synthesize parseTPB;
+@synthesize parser;
 @synthesize popoverTorrent;
 
 - (id)init {
@@ -69,16 +69,12 @@
 }
 
 - (IBAction)showInWeb:(id)sender {
-    NSString *url = @"http://thepiratebay.se";
-    NSString *torrent = [[NSString alloc] initWithString:[[list objectAtIndex:clicked] url]];
-    NSURL *urlTorrent = [[NSURL alloc] initWithString:[url stringByAppendingString:torrent]];
+    NSURL *urlTorrent = [[NSURL alloc] initWithString:[[list objectAtIndex:clicked] url]];
     [[NSWorkspace sharedWorkspace] openURL:urlTorrent];
 }
 
 - (IBAction)showUserInWeb:(id)sender {
-    NSString *url = @"http://thepiratebay.se";
-    NSString *user = [[NSString alloc] initWithString:[[list objectAtIndex:clicked] userURL]];
-    NSURL *urlUser = [[NSURL alloc] initWithString:[url stringByAppendingString:user]];
+    NSURL *urlUser = [[NSURL alloc] initWithString:[[list objectAtIndex:clicked] userURL]];
     [[NSWorkspace sharedWorkspace] openURL:urlUser];
 }
 
@@ -101,25 +97,67 @@
 }
 
 - (void)loadDatainTableView:(NSString *)type {
-    NSString *url = @"http://thepiratebay.se/search/";
+    NSString *urlTPB = @"http://thepiratebay.se/search/";
+    NSString *urlDem = @"http://www.demonoid.me/files/?to=0&uid=0&category=0&subcategory=0&language=0&seeded=0&quality=0&external=2&query=";
     NSString *error = [[NSString alloc] init];
     NSString *stringLabelNTorrent = [[NSString alloc] init];
     NSString *toolTip = @"Resultados de: ";
     id torrents = nil;
+    id torrentsTPB = nil;
+    id torrentsDem = nil;
+    
+    // prueba string
+    //NSArray *array = [[NSArray alloc] initWithObjects:@"0", @"1", @"2", nil];
+    /*NSString *array = @"hola";
+    id idprueba = array;
+    if ([idprueba count]) {
+        NSLog(@"- Array -");
+    }*/
     
     // Do the parse
     NSString *searchValue = [searchField stringValue];
-    NSString *searchString = [url stringByAppendingString:searchValue];
-    searchString = [searchString stringByAppendingString:@""];
-    parseTPB = [[ParseWeb alloc] init];
+    NSString *searchStringTPB = [urlTPB stringByAppendingString:searchValue];
+    NSString *searchStringDem = [urlDem stringByAppendingString:searchValue];
+    searchStringDem = [searchStringDem stringByAppendingString:@"&sort=S"];
+    parser = [[ParseWeb alloc] init];
     [self clearLabel];
     [progressGear startAnimation:self];
+    if ([drawerSettings state] == 1 || [drawerSettings state] == 2) {
+        [drawerSettings performSelectorOnMainThread:@selector(close) withObject:nil waitUntilDone:NO];
+    }
     [searchField setEnabled:NO];
     [botonSettings setEnabled:NO];
     [botonSearch setEnabled:NO];
     
     // if not void searchField, not void torrents Array or not connection error
-    torrents = [parseTPB loadHTMLbyURLTPB:searchString];
+    if ([checkTPB state] == NSOnState && [checkDem state] == NSOnState) {
+        torrentsTPB = [parser loadHTMLbyURLTPB:searchStringTPB];
+        torrentsDem = [parser loadHTMLbyURLDem:searchStringDem];
+        if (([torrentsDem isNotEqualTo:@"void"] && [torrentsDem isNotEqualTo:@"-1"] && [torrentsDem isNotEqualTo:@"-2"]) && ([torrentsTPB isNotEqualTo:@"void"] && [torrentsDem isNotEqualTo:@"-1"] && [torrentsDem isNotEqualTo:@"-2"])) {
+            torrents = torrentsTPB;
+            [torrents addObjectsFromArray:torrentsDem];
+        }
+        else if (([torrentsDem isNotEqualTo:@"void"] && [torrentsDem isNotEqualTo:@"-1"] && [torrentsDem isNotEqualTo:@"-2"]) && ([torrentsTPB isEqualTo:@"void"] || [torrentsDem isEqualTo:@"-1"] || [torrentsDem isEqualTo:@"-2"])) {
+            torrents = torrentsDem;
+        }
+        else if (([torrentsDem isEqualTo:@"void"] || [torrentsDem isEqualTo:@"-1"] || [torrentsDem isEqualTo:@"-2"]) && ([torrentsTPB isNotEqualTo:@"void"] && [torrentsDem isNotEqualTo:@"-1"] && [torrentsDem isNotEqualTo:@"-2"])) {
+            torrents = torrentsTPB;
+        }
+        else {
+            torrents = torrentsTPB;
+        }
+    }
+    else if ([checkTPB state] == NSOnState && [checkDem state] == NSOffState) {
+        torrents = [parser loadHTMLbyURLTPB:searchStringTPB];
+    }
+    else if ([checkTPB state] == NSOffState && [checkDem state] == NSOnState) {
+        torrents = [parser loadHTMLbyURLDem:searchStringDem];
+    }
+    else {
+        [errorLabel setStringValue:@"No se ha seleccionado ningún servicio"];
+        [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(clearLabel) userInfo:nil repeats:NO];
+        NSLog(@"No Service");
+    }
     [list removeAllObjects];
     
     if ([torrents isNotEqualTo:@"-1"] && [torrents isNotEqualTo:@"-2"] && [torrents isNotEqualTo:@"void"]){
@@ -128,10 +166,14 @@
             [list addObject:tor];
         }
         /* Rellenar el tooltip de la tabla */
-        [torrentTableView setToolTip:[toolTip stringByAppendingString:[parseTPB resultString]]];
+        [torrentTableView setToolTip:[toolTip stringByAppendingString:searchValue]];
         /* Rellenar el label inferior */
-        stringLabelNTorrent = [parseTPB resultString];
-        stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:@" - "];
+        stringLabelNTorrent = @"Resultados para '";
+        stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:searchValue];
+        stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:@"' - "];
+        /*if (torrentsDem str) {
+            
+        }*/
         stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:[[NSNumber numberWithLong:[list count]] stringValue]];
         stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:@" resultados"];
         [labelNTorrent setStringValue:stringLabelNTorrent];
@@ -141,6 +183,7 @@
     }
     else {
         error = torrents;
+        NSLog(@"%@",error);
         [labelNTorrent setStringValue:@""];
         [list removeAllObjects];
         [searchField setFocusRingType:NSFocusRingOnly];

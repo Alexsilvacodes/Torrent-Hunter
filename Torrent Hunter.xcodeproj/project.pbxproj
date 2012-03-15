@@ -25,6 +25,7 @@
 		FA39972B14F3E33A001334C0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA39972814F3E33A001334C0 /* InfoPlist.strings */; };
 		FA39972E14F3E342001334C0 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA39972C14F3E342001334C0 /* MainMenu.xib */; };
 		FA6B9C9514EC0AE5006DD9D0 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6B9C9414EC0AE5006DD9D0 /* libxml2.dylib */; };
+		FA909ACC150A172E0046C653 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = FA909ACB150A172E0046C653 /* icon.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		FA39972914F3E33A001334C0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FA39972D14F3E342001334C0 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = "Torrent Hunter/es.lproj/MainMenu.xib"; sourceTree = "<group>"; };
 		FA6B9C9414EC0AE5006DD9D0 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		FA909ACB150A172E0046C653 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 		FA353C4F14FD3D8300F7BD36 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				FA909ACB150A172E0046C653 /* icon.icns */,
 				FA353C4914FD3D8000F7BD36 /* favicon_dem.png */,
 				FA353C4A14FD3D8000F7BD36 /* favicon_tpb.png */,
 			);
@@ -267,6 +270,7 @@
 				FA353C4C14FD3D8000F7BD36 /* favicon_dem.png in Resources */,
 				FA353C4D14FD3D8000F7BD36 /* favicon_tpb.png in Resources */,
 				FA353C5214FD3EB500F7BD36 /* Torrent Hunter-Info.plist in Resources */,
+				FA909ACC150A172E0046C653 /* icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

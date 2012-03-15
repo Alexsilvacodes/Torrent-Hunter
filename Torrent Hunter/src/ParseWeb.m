@@ -14,7 +14,6 @@
 @implementation ParseWeb
 
 @synthesize torrents;
-@synthesize resultString;
 
 /***********************/
 /* ThePirateBay method */
@@ -44,13 +43,16 @@
         if ([trNodes count]<1 || [[spanNode contents] rangeOfString:@"Torrent"].location != NSNotFound) {
             [NSException raise:@"NoSearchResult" format:@""];
         }
-        else{
-            resultString = [spanNode contents];
+        else if (!tableNode) {
+            [NSException raise:@"ConectionError" format:@""];
+            NSLog(@"Conection");
+        }
+        else {
             
             /* ------- Numero de paginas ------ */
             
-            int numPages = [[[bodyNode findChildWithAttribute:@"align" matchingName:@"center" allowPartial:NO] contents] intValue];
-            NSLog(@"%d",numPages);
+            //∫int numPages = [[[bodyNode findChildWithAttribute:@"align" matchingName:@"center" allowPartial:NO] contents] intValue];
+            //NSLog(@"%d",numPages);
             
             /* =============================== */
             
@@ -69,7 +71,9 @@
                     else {
                         HTMLNode *userNode = [descNode findChildTag:@"a"];
                         user = [userNode contents];
-                        [current setUserURL:[userNode getAttributeNamed:@"href"]];
+                        NSString *urlUser = @"http://thepiratebay.se";
+                        urlUser = [urlUser stringByAppendingString:[userNode getAttributeNamed:@"href"]];
+                        [current setUserURL:urlUser];
                         [current setUserName:[userNode contents]];
                     }
                     NSArray *tdNodes = [trNode findChildTags:@"td"];
@@ -80,7 +84,9 @@
                     /* Magnet */
                     [current setMagnetLink:[magnetNode getAttributeNamed:@"href"]];
                     /* Torrent URL */
-                    [current setUrl:[[aNodes objectAtIndex:2] getAttributeNamed:@"href"]];
+                    NSString *urlTPB = @"http://thepiratebay.se";
+                    urlTPB = [urlTPB stringByAppendingString:[[aNodes objectAtIndex:2] getAttributeNamed:@"href"]];
+                    [current setUrl:urlTPB];
                     /* Seeders */
                     [current setSeeders:[[[tdNodes objectAtIndex:2] contents] intValue]];
                     /* Leechers */
@@ -142,12 +148,18 @@
         }
         
         HTMLNode *tableNode = [bodyNode findChildWithAttribute:@"class" matchingName:@"font_12px" allowPartial:FALSE];
-        NSArray *trDateNodes = [tableNode findChildrenWithAttribute:@"bgcolor" matchingName:@"#CCCCCC" allowPartial:NO];
         /* Titulo */
         NSArray *tdNodes1Pad = [tableNode findChildrenOfClass:@"tone_1_pad"];
         NSArray *tdNodes3Pad = [tableNode findChildrenOfClass:@"tone_3_pad"];
+        NSMutableArray *titleNodes = [[NSMutableArray alloc] init];
+        for (NSInteger i=0 ; i<[tdNodes1Pad count] ; i++) {
+            [titleNodes addObject:[tdNodes1Pad objectAtIndex:i]];
+            [titleNodes addObject:[tdNodes3Pad objectAtIndex:i]];
+        }
+        /* Torrent URL */
+        NSArray *urlNodes = [tableNode findChildrenWithAttribute:@"href" matchingName:@"/files/details/" allowPartial:YES];
         /* Usuario */
-        NSArray *aUserNodes = [tableNode findChildrenOfClass:@"user"];
+        NSArray *aUserNodes = [tableNode findChildrenWithAttribute:@"href" matchingName:@"/users/" allowPartial:YES];
         /* Magnet */
         NSArray *aMagnetNodes = [tableNode findChildrenWithAttribute:@"href" matchingName:@"/files/downloadmagnet/" allowPartial:YES];
         /* Seeders */
@@ -156,61 +168,70 @@
         NSArray *fontLNodes = [tableNode findChildrenOfClass:@"red"];
         /* Size */
         NSArray *tdNodes = [tableNode findChildTags:@"td"];
-        NSMutableArray *tdSizeNodes = [NSMutableArray alloc];
+        NSMutableArray *tdSizeNodes = [[NSMutableArray alloc] init];
         for (HTMLNode *tdNode in tdNodes) {
             if ([[tdNode getAttributeNamed:@"align"] isEqualToString:@"right"]) {
                 [tdSizeNodes addObject:tdNode];
             }
         }
+        /* Times completed */
+        NSArray *fontBNodes = [tableNode findChildrenOfClass:@"blue"];
         
-        NSString *user = [NSString alloc];
-        
-        //resultString = [spanNode contents];
-        
-        /* ------- Numero de paginas ------ */
-        
-        NSInteger numPages = [[[bodyNode findChildWithAttribute:@"align" matchingName:@"center" allowPartial:NO] contents] intValue];
-        
-        /* =============================== */
-        NSInteger i = 0;
-        for (HTMLNode *trDateNode in trDateNodes) {
-            Torrent *current = [[Torrent alloc] init];
+        HTMLNode *fontErrorNode = [bodyNode findChildWithAttribute:@"size" matchingName:@"+2" allowPartial:NO];
+        if ([[fontErrorNode contents] isEqualToString:@"Maintenance"]) {
+             NSLog(@"Error: %@",[fontErrorNode contents]);
+            [NSException raise:@"ConectionError" format:@""];
+        }
+        else{
+            /* ------- Numero de paginas ------ */
             
-            [current setSource:[NSImage imageNamed:@"favicon_dem.png"]];
+            //NSInteger numPages = [[[bodyNode findChildWithAttribute:@"align" matchingName:@"center" allowPartial:NO] contents] intValue];
             
-            [torrents addObject:current];
-            ++i;
-            /*if (![[trNode getAttributeNamed:@"class"] isEqualToString:@"header"]) {
+            /* =============================== */
+            int j = 0;
+            for (HTMLNode *titleNode in titleNodes) {
                 Torrent *current = [[Torrent alloc] init];
-                HTMLNode *titleNode = [trNode findChildWithAttribute:@"class" matchingName:@"detLink" allowPartial:FALSE];
-                HTMLNode *magnetNode = [trNode findChildWithAttribute:@"href" matchingName:@"magnet" allowPartial:TRUE];
-                HTMLNode *descNode = [trNode findChildTag:@"font"];
-                if ([descNode findChildTag:@"i"]) {
-                    HTMLNode *userNode = [descNode findChildTag:@"i"];
-                    user = [userNode contents];
-                    [current setUserURL:@"NoUser"];
-                    [current setUserName:[userNode contents]];
-                }
-                else {
-                    HTMLNode *userNode = [descNode findChildTag:@"a"];
-                    user = [userNode contents];
-                    [current setUserURL:[userNode getAttributeNamed:@"href"]];
-                    [current setUserName:[userNode contents]];
-                }
-                NSArray *tdNodes = [trNode findChildTags:@"td"];
-                NSArray *aNodes = [trNode findChildTags:@"a"];
                 
-                [current setTitle:[titleNode contents]];
-                [current setMagnetLink:[magnetNode getAttributeNamed:@"href"]];
-                [current setUrl:[[aNodes objectAtIndex:2] getAttributeNamed:@"href"]];
-                [current setSeeders:[[[tdNodes objectAtIndex:2] contents] intValue]];
-                [current setLeechers:[[[tdNodes objectAtIndex:3] contents] intValue]];
-                [current setDescription:[[descNode contents] stringByAppendingString:user]];
+                /* Title */
+                [current setTitle:[[titleNode findChildTag:@"a"] contents]];
+                /* User */
+                [current setUserName:[[[[aUserNodes objectAtIndex:j] getAttributeNamed:@"href"] componentsSeparatedByString:@"/users/"] objectAtIndex:1]];
+                /* User URL */
+                NSString *user = @"http://demonoid.me";
+                user = [user stringByAppendingString:[[aUserNodes objectAtIndex:j] getAttributeNamed:@"href"]];
+                [current setUserURL:user];
+                /* Source */
+                [current setSource:[NSImage imageNamed:@"favicon_dem.png"]];
+                /* Magnet Link */
+                NSString *magnet = @"http://demonoid.me";
+                magnet = [magnet stringByAppendingString:[[aMagnetNodes objectAtIndex:j] getAttributeNamed:@"href"]];
+                [current setMagnetLink:magnet];
+                /* Seeders */
+                [current setSeeders:[[[fontSNodes objectAtIndex:j] contents] intValue]];
+                /* Leechers */
+                [current setLeechers:[[[fontLNodes objectAtIndex:j] contents] intValue]];
+                /* Size */
+                [current setSize:[[tdSizeNodes objectAtIndex:j] contents]];
+                /* Description */
+                NSString *desc = [[NSString alloc] init];
+                desc = [desc stringByAppendingString:@"Completado: "];
+                desc = [desc stringByAppendingString:[[fontBNodes objectAtIndex:j] contents]];
+                desc = [desc stringByAppendingString:@" veces, Tamaño: "];
+                desc = [desc stringByAppendingString:[[tdSizeNodes objectAtIndex:j] contents]];
+                desc = [desc stringByAppendingString:@", subido por "];
+                desc = [desc stringByAppendingString:[[[[aUserNodes objectAtIndex:j] getAttributeNamed:@"href"] componentsSeparatedByString:@"/users/"] objectAtIndex:1]];
+                [current setDescription:desc];
+                /* Torrent URL */
+                NSString *urlDem = @"http://www.demonoid.me";
+                urlDem = [urlDem stringByAppendingString:[[urlNodes objectAtIndex:j] getAttributeNamed:@"href"]];
+                [current setUrl:urlDem];
+                
+                j++;
                 
                 [torrents addObject:current];
-            }*/
+            }
+            return torrents;
         }
-        return torrents;
     }
     @catch (NSException *exception) {
         if ([[exception name] isLike:@"ConnectionError"]) {

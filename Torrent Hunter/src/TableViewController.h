@@ -22,13 +22,16 @@
     IBOutlet NSButton *botonUser;
     IBOutlet NSButton *botonSearch;
     IBOutlet NSButton *botonSettings;
+    IBOutlet NSButton *checkTPB;
+    IBOutlet NSButton *checkDem;
+    IBOutlet NSDrawer *drawerSettings;
     NSInteger clicked;
-    ParseWeb *parseTPB;
+    ParseWeb *parser;
     NSMutableArray *list;
     NSMutableArray *recentSearches;
 }
 
-@property (nonatomic, retain) ParseWeb *parseTPB;
+@property (nonatomic, retain) ParseWeb *parser;
 @property (weak) IBOutlet NSPopover *popoverTorrent;
 
 - (IBAction)search:(id)sender;

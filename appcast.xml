@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
    <channel>
       <title>Torrent Hunter Changelog</title>
-      <link>https://github.com/Alexsays/Torrent-Hunter/downloads/appcast.xml</link>
+      <link>https://github.com/downloads/Alexsays/Torrent-Hunter/appcast.xml</link>
       <description>Most recent changes with links to updates.</description>
       <language>es</language>
 			<item>
         <title>Version 0.9.1b3</title>
         <sparkle:releaseNotesLink>
-          https://github.com/Alexsays/Torrent-Hunter/blob/gh-pages/0.9.1b3.html
+          https://github.com/downloads/Alexsays/Torrent-Hunter/0.9.1b3.html
         </sparkle:releaseNotesLink>
         <pubDate>jue, 15 mar 2012 22:31:53 +0100</pubDate>
         <enclosure url="https://github.com/downloads/Alexsays/Torrent-Hunter/Torrent-Hunter 0.9.1b3.zip" sparkle:version="0.9.1b3" type="application/octet-stream" length="402969" sparkle:dsaSignature="MCwCFG5xnlgtPFvceHundPwi7MbTakIEAhRdUDVYHXpOPiLOcEkRYMR9FN32xw==" />

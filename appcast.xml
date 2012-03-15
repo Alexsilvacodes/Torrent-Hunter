@@ -6,12 +6,12 @@
       <description>Most recent changes with links to updates.</description>
       <language>es</language>
 			<item>
-           <title>Version 0.9 (First Version)</title>
-						<sparkle:releaseNotesLink>
-							http://you.com/app/1.4.html
-						</sparkle:releaseNotesLink>
-           <pubDate>Wed, 25 Dec 2005 12:20:11 +0000</pubDate>
-           <enclosure url="http://you.com/app/Your Great App 1.4.zip" sparkle:version="241" sparkle:shortVersionString="1.4" sparkle:dsaSignature="MC0CFBfeCa1JyW30nbkBwainOzrN6EQuAh=" length="1472349" type="application/octet-stream" />
-        </item>
+        <title>Version 0.9.1b3</title>
+        <sparkle:releaseNotesLink>
+          https://github.com/Alexsays/Torrent-Hunter/blob/gh-pages/0.9.1b3.html
+        </sparkle:releaseNotesLink>
+        <pubDate>jue, 15 mar 2012 22:31:53 +0100</pubDate>
+        <enclosure url="https://github.com/downloads/Alexsays/Torrent-Hunter/Torrent-Hunter 0.9.1b3.zip" sparkle:version="0.9.1b3" type="application/octet-stream" length="402969" sparkle:dsaSignature="MCwCFG5xnlgtPFvceHundPwi7MbTakIEAhRdUDVYHXpOPiLOcEkRYMR9FN32xw==" />
+      </item>
    </channel>
 </rss>

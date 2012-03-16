@@ -13,9 +13,11 @@
 @interface ParseWeb : NSObject {
     NSMutableArray *torrents;
     HTMLParser *parser;
+    int nItems;
 }
 
 @property (readonly, retain) NSMutableArray *torrents;
+@property int nItems;
 
 - (id)loadHTMLbyURLTPB:(NSString *)urlString;
 - (id)loadHTMLbyURLDem:(NSString *)urlString;

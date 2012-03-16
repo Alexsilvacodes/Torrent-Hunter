@@ -14,13 +14,25 @@
 @implementation ParseWeb
 
 @synthesize torrents;
+@synthesize nItems;
 
 /***********************/
 /* ThePirateBay method */
 /***********************/
 
+-(id)init {
+    self = [super init];
+    if (self) {
+        nItems = 0;
+    }
+    return self;
+}
+
 - (id)loadHTMLbyURLTPB:(NSString *)urlString {
     NSError *error = nil;
+    int numPages;
+    int numItems;
+    
     torrents = [[NSMutableArray alloc] init];
     @try {
         if ([urlString isEqualTo:@"http://thepiratebay.se/search/"]){
@@ -50,8 +62,14 @@
             
             /* ------- Numero de paginas ------ */
             
-            //∫int numPages = [[[bodyNode findChildWithAttribute:@"align" matchingName:@"center" allowPartial:NO] contents] intValue];
-            //NSLog(@"%d",numPages);
+            numItems = [[[[[bodyNode findChildTag:@"h2"] rawContents] componentsSeparatedByString:@" "] objectAtIndex:11] intValue];
+            nItems = nItems + numItems;
+            if (numItems % 30 != 0) {
+                numPages = numItems / 30 + 1;
+            }
+            else {
+                numPages = numItems / 30;
+            }
             
             /* =============================== */
             
@@ -123,6 +141,9 @@
 
 - (id)loadHTMLbyURLDem:(NSString *)urlString {
     NSError *error = nil;
+    int numPages;
+    int numItems;
+    
     torrents = [[NSMutableArray alloc] init];
     @try {
         if ([urlString isEqualTo:@"http://www.demonoid.me/files/?to=0&uid=0&category=0&subcategory=0&language=0&seeded=0&quality=0&external=2&query=&sort=S"]){
@@ -182,7 +203,14 @@
         else{
             /* ------- Numero de paginas ------ */
             
-            //NSInteger numPages = [[[bodyNode findChildWithAttribute:@"align" matchingName:@"center" allowPartial:NO] contents] intValue];
+            numItems = [[[[[tableNode findChildTag:@"strong"] contents] componentsSeparatedByString:@" "] objectAtIndex:0] intValue];
+            nItems = nItems + numItems;
+            if (numItems % 30 != 0) {
+                numPages = numItems / 30 + 1;
+            }
+            else {
+                numPages = numItems / 30;
+            }
             
             /* =============================== */
             int j = 0;

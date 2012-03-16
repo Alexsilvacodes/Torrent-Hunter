@@ -42,7 +42,7 @@
 }
 
 - (void)doubleClick:(id)sender {
-    if ([list count] > 0) {
+    if ([list count] > 0 && [[torrentTableView selectedRowIndexes] count] == 1) {
         NSInteger i = [torrentTableView clickedRow];
         NSURL *magnet = [NSURL URLWithString:[[list objectAtIndex:i] magnetLink]];
         [[NSWorkspace sharedWorkspace] openURL:magnet];
@@ -147,6 +147,7 @@
     }
     else {
         [errorLabel setStringValue:@"No se ha seleccionado ningún servicio"];
+        [drawerSettings performSelectorOnMainThread:@selector(open) withObject:nil waitUntilDone:NO];
         [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(clearLabel) userInfo:nil repeats:NO];
         NSLog(@"No Service");
     }
@@ -162,9 +163,10 @@
         /* Rellenar el label inferior */
         stringLabelNTorrent = @"Resultados para '";
         stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:searchValue];
-        stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:@"' - "];
+        stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:@"' - se muestran "];
         stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:[[NSNumber numberWithLong:[list count]] stringValue]];
-        stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:@" resultados"];
+        stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:@" resultados de "];
+        stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:[[NSNumber numberWithInt:[parser nItems]] stringValue]];
         [labelNTorrent setStringValue:stringLabelNTorrent];
         /* Recargar los datos de la tabla */
         [torrentTableView reloadData];
@@ -198,6 +200,17 @@
     Torrent *t = [list objectAtIndex:row];
     NSString *identifier = [tableColumn identifier];
     return [t valueForKey:identifier];
+}
+
+- (void)tableView:(NSTableView *)tableView sortDescriptorsDidChange:(NSArray *)oldDescriptors
+{
+    [list sortUsingDescriptors:[tableView sortDescriptors]];
+    [tableView reloadData];
+}
+
+- (void)tableView:(NSTableView *)tableView didClickTableColumn:(NSTableColumn *)tableColumn
+{
+	[tableView setFocusRingType:0];
 }
 
 @end

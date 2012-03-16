@@ -20,6 +20,7 @@
 @synthesize seeders;
 @synthesize leechers;
 @synthesize source;
+@synthesize pages;
 
 - (id)init {
     self = [super init];
@@ -33,6 +34,7 @@
         size = @"";
         seeders = 0;
         leechers = 0;
+        pages = 0;
         source = nil;
     }
     return self;

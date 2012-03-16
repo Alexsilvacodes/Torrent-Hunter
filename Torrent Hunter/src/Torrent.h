@@ -18,6 +18,7 @@
     NSString *userName;
     NSImage *source;
     NSString *size;
+    int pages;
     int seeders;
     int leechers;
 }
@@ -30,6 +31,7 @@
 @property (copy) NSString *userName;
 @property (copy) NSImage *source;
 @property (copy) NSString *size;
+@property int pages;
 @property int seeders;
 @property int leechers;
 

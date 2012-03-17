@@ -1,0 +1,37 @@
+/* 
+  Localizable.strings
+  Torrent Hunter
+
+  Created by Alejandro Silva on 17/03/12.
+  Copyright (c) 2012 AH-Develop. All rights reserved.
+*/
+
+/* Description -> Completed */
+"Completed: " = "Completado: ";
+
+/* Description -> Size */
+" times, Size: " = " veces, Tamaño: ";
+
+/* Description -> Uploaded */
+", uploaded by " = ", subido por ";
+
+/* Error -> no results */
+"No results found" = "No se han encontrado resultados";
+
+/* Error -> connection */
+"Error connecting to server" = "Error de conexion con el servidor";
+
+/* Tooltip -> results */
+"Results for: " = "Resultados de: ";
+
+/* ErrorLabel -> no service selected */
+"No service has been selected" = "No se ha seleccionado ningún servicio";
+
+/* LabelTorrent -> results */
+"Results for: '" = "Resultados para: '";
+
+/* LabelTorrent -> showing */
+"' - showing " = "' - mostrando ";
+
+/* LabelTorrent -> for */
+" results of " = " resultados de ";

@@ -28,6 +28,8 @@
 		FA39972E14F3E342001334C0 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA39972C14F3E342001334C0 /* MainMenu.xib */; };
 		FA6B9C9514EC0AE5006DD9D0 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6B9C9414EC0AE5006DD9D0 /* libxml2.dylib */; };
 		FA909ACC150A172E0046C653 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = FA909ACB150A172E0046C653 /* icon.icns */; };
+		FABD1CD3151553BE00167776 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FABD1CD1151553BE00167776 /* Localizable.strings */; };
+		FABD1CD5151553CD00167776 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FABD1CD1151553BE00167776 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -77,6 +79,11 @@
 		FA39972D14F3E342001334C0 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = "Torrent Hunter/es.lproj/MainMenu.xib"; sourceTree = "<group>"; };
 		FA6B9C9414EC0AE5006DD9D0 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		FA909ACB150A172E0046C653 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
+		FABD1CCD1515537700167776 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "/Users/Alex/Dropbox/Proyectos/Torrent-Hunter/Torrent Hunter/en.lproj/InfoPlist.strings"; sourceTree = "<absolute>"; };
+		FABD1CCE1515537700167776 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = "/Users/Alex/Dropbox/Proyectos/Torrent-Hunter/Torrent Hunter/en.lproj/Credits.rtf"; sourceTree = "<absolute>"; };
+		FABD1CCF1515537700167776 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "/Users/Alex/Dropbox/Proyectos/Torrent-Hunter/en.lproj/MainMenu.xib"; sourceTree = "<absolute>"; };
+		FABD1CD2151553BE00167776 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FABD1CD4151553CD00167776 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +181,7 @@
 		FA28C29B14DB30770026F771 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FABD1CD1151553BE00167776 /* Localizable.strings */,
 				FA353C5114FD3EB500F7BD36 /* Torrent Hunter-Prefix.pch */,
 				FA353C4414FD3D5800F7BD36 /* main.m */,
 				FA39972614F3E33A001334C0 /* Credits.rtf */,
@@ -300,6 +308,8 @@
 				FA353C4D14FD3D8000F7BD36 /* favicon_tpb.png in Resources */,
 				FA909ACC150A172E0046C653 /* icon.icns in Resources */,
 				FA043EBC15129899000D5559 /* dsa_pub.pem in Resources */,
+				FABD1CD3151553BE00167776 /* Localizable.strings in Resources */,
+				FABD1CD5151553CD00167776 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +344,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FA39972714F3E33A001334C0 /* es */,
+				FABD1CCE1515537700167776 /* en */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
@@ -342,6 +353,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FA39972914F3E33A001334C0 /* es */,
+				FABD1CCD1515537700167776 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -350,8 +362,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				FA39972D14F3E342001334C0 /* es */,
+				FABD1CCF1515537700167776 /* en */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		FABD1CD1151553BE00167776 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FABD1CD2151553BE00167776 /* en */,
+				FABD1CD4151553CD00167776 /* es */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

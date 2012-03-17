@@ -81,12 +81,12 @@
 - (void)showAlertError:(NSString *)error {
     NSTimer *timer;
     if ([error isEqualTo:@"-1"]) {
-        [errorLabel setStringValue:@"No se han encontrado resultados"];
+        [errorLabel setStringValue:NSLocalizedString(@"No results found", "Error -> no results")];
         timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(clearLabel) userInfo:nil repeats:NO];
         NSLog(@"Error de busqueda");
     }
     else if ([error isEqualTo:@"-2"]) {
-        [errorLabel setStringValue:@"Error de conexión con el servidor"];
+        [errorLabel setStringValue:NSLocalizedString(@"Error connecting to server", "Error -> connection")];
         timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(clearLabel) userInfo:nil repeats:NO];
         NSLog(@"Error de conexion");
     }
@@ -101,7 +101,7 @@
     NSString *urlDem = @"http://www.demonoid.me/files/?to=0&uid=0&category=0&subcategory=0&language=0&seeded=0&quality=0&external=2&query=";
     NSString *error = [[NSString alloc] init];
     NSString *stringLabelNTorrent = [[NSString alloc] init];
-    NSString *toolTip = @"Resultados de: ";
+    NSString *toolTip = NSLocalizedString(@"Results for: ", "Tooltip -> results");
     id torrents = nil;
     id torrentsTPB = nil;
     id torrentsDem = nil;
@@ -146,7 +146,7 @@
         torrents = [parser loadHTMLbyURLDem:searchStringDem];
     }
     else {
-        [errorLabel setStringValue:@"No se ha seleccionado ningún servicio"];
+        [errorLabel setStringValue:NSLocalizedString(@"No service has been selected", "ErrorLabel -> no service selected")];
         [drawerSettings performSelectorOnMainThread:@selector(open) withObject:nil waitUntilDone:NO];
         [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(clearLabel) userInfo:nil repeats:NO];
         NSLog(@"No Service");
@@ -161,11 +161,11 @@
         /* Rellenar el tooltip de la tabla */
         [torrentTableView setToolTip:[toolTip stringByAppendingString:searchValue]];
         /* Rellenar el label inferior */
-        stringLabelNTorrent = @"Resultados para '";
+        stringLabelNTorrent = NSLocalizedString(@"Results for: '", "LabelTorrent -> results");
         stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:searchValue];
-        stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:@"' - se muestran "];
+        stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:NSLocalizedString(@"' - showing ", "LabelTorrent -> showing")];
         stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:[[NSNumber numberWithLong:[list count]] stringValue]];
-        stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:@" resultados de "];
+        stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:NSLocalizedString(@" results of ", "LabelTorrent -> for")];
         stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:[[NSNumber numberWithInt:[parser nItems]] stringValue]];
         [labelNTorrent setStringValue:stringLabelNTorrent];
         /* Recargar los datos de la tabla */

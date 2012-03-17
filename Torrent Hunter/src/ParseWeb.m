@@ -239,11 +239,11 @@
                 [current setSize:[[tdSizeNodes objectAtIndex:j] contents]];
                 /* Description */
                 NSString *desc = [[NSString alloc] init];
-                desc = [desc stringByAppendingString:@"Completado: "];
+                desc = [desc stringByAppendingString:NSLocalizedString(@"Completed: ", "Description -> Completed")];
                 desc = [desc stringByAppendingString:[[fontBNodes objectAtIndex:j] contents]];
-                desc = [desc stringByAppendingString:@" veces, Tamaño: "];
+                desc = [desc stringByAppendingString:NSLocalizedString(@" times, Size: ", "Description -> Size")];
                 desc = [desc stringByAppendingString:[[tdSizeNodes objectAtIndex:j] contents]];
-                desc = [desc stringByAppendingString:@", subido por "];
+                desc = [desc stringByAppendingString:NSLocalizedString(@", uploaded by ", "Description -> Uploaded")];
                 desc = [desc stringByAppendingString:[[[[aUserNodes objectAtIndex:j] getAttributeNamed:@"href"] componentsSeparatedByString:@"/users/"] objectAtIndex:1]];
                 [current setDescription:desc];
                 /* Torrent URL */

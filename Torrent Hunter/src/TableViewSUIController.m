@@ -1,18 +1,19 @@
 //
-//  TableViewController.m
+//  TableViewSUIController.m
 //  Torrent Hunter
 //
 //  Created by Alejandro Silva on 08/02/12.
 //  Copyright (c) 2012 AH-Develop. All rights reserved.
 //
 
-#import "TableViewController.h"
+#import "TableViewSUIController.h"
 #import "Torrent.h"
 
-@implementation TableViewController
+@implementation TableViewSUIController
 
 @synthesize parser;
 @synthesize popoverTorrent;
+@synthesize popoverSettings;
 
 - (id)init {
     self = [super init];
@@ -47,6 +48,11 @@
         NSURL *magnet = [NSURL URLWithString:[[list objectAtIndex:i] magnetLink]];
         [[NSWorkspace sharedWorkspace] openURL:magnet];
     }
+}
+
+- (IBAction)showSettings:(id)sender {
+    //[hudSettings makeKeyAndOrderFront:nil];
+    [popoverSettings showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMinXEdge];
 }
 
 - (IBAction)showPopover:(id)sender {
@@ -96,11 +102,10 @@
     [errorLabel setStringValue:@""];
 }
 
-- (void)loadDatainTableView {
+- (void)loadDatainTableView{
     NSString *urlTPB = @"http://thepiratebay.se/search/";
     NSString *urlDem = @"http://www.demonoid.me/files/?to=0&uid=0&category=0&subcategory=0&language=0&seeded=0&quality=0&external=2&query=";
     NSString *error = [[NSString alloc] init];
-    NSString *stringLabelNTorrent = [[NSString alloc] init];
     NSString *toolTip = NSLocalizedString(@"Results for: ", "Tooltip -> results");
     id torrents = nil;
     id torrentsTPB = nil;
@@ -114,9 +119,6 @@
     parser = [[ParseWeb alloc] init];
     [self clearLabel];
     [progressGear startAnimation:self];
-    if ([drawerSettings state] == 1 || [drawerSettings state] == 2) {
-        [drawerSettings performSelectorOnMainThread:@selector(close) withObject:nil waitUntilDone:NO];
-    }
     [searchField setEnabled:NO];
     [botonSettings setEnabled:NO];
     [botonSearch setEnabled:NO];
@@ -147,7 +149,6 @@
     }
     else {
         [errorLabel setStringValue:NSLocalizedString(@"No service has been selected", "ErrorLabel -> no service selected")];
-        [drawerSettings performSelectorOnMainThread:@selector(open) withObject:nil waitUntilDone:NO];
         [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(clearLabel) userInfo:nil repeats:NO];
         NSLog(@"No Service");
     }
@@ -160,21 +161,12 @@
         }
         /* Rellenar el tooltip de la tabla */
         [torrentTableView setToolTip:[toolTip stringByAppendingString:searchValue]];
-        /* Rellenar el label inferior */
-        stringLabelNTorrent = NSLocalizedString(@"Results for: '", "LabelTorrent -> results");
-        stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:searchValue];
-        stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:NSLocalizedString(@"' - showing ", "LabelTorrent -> showing")];
-        stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:[[NSNumber numberWithLong:[list count]] stringValue]];
-        stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:NSLocalizedString(@" results of ", "LabelTorrent -> for")];
-        stringLabelNTorrent = [stringLabelNTorrent stringByAppendingString:[[NSNumber numberWithInt:[parser nItems]] stringValue]];
-        [labelNTorrent setStringValue:stringLabelNTorrent];
         /* Recargar los datos de la tabla */
         [torrentTableView reloadData];
         [torrentTableView setFocusedColumn:1];
     }
     else {
         error = torrents;
-        [labelNTorrent setStringValue:@""];
         [list removeAllObjects];
         [searchField setFocusRingType:NSFocusRingOnly];
         [recentSearches removeLastObject];

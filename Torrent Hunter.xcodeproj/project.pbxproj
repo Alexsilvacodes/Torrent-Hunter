@@ -26,10 +26,17 @@
 		FA39972A14F3E33A001334C0 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = FA39972614F3E33A001334C0 /* Credits.rtf */; };
 		FA39972B14F3E33A001334C0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA39972814F3E33A001334C0 /* InfoPlist.strings */; };
 		FA39972E14F3E342001334C0 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA39972C14F3E342001334C0 /* MainMenu.xib */; };
+		FA4ED6B71519F8FF009316B1 /* CustomStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4ED6B61519F8FF009316B1 /* CustomStatusView.m */; };
+		FA4ED6C6151A5C39009316B1 /* TableViewSUIController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4ED6C5151A5C39009316B1 /* TableViewSUIController.m */; };
+		FA4ED6D5151A8675009316B1 /* SearchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4ED6D4151A8675009316B1 /* SearchOperation.m */; };
 		FA6B9C9514EC0AE5006DD9D0 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6B9C9414EC0AE5006DD9D0 /* libxml2.dylib */; };
+		FA8341B41519ED18009DE6F1 /* icon_sui_b.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8341B21519ED18009DE6F1 /* icon_sui_b.png */; };
+		FA8341B51519ED18009DE6F1 /* icon_sui_w.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8341B31519ED18009DE6F1 /* icon_sui_w.png */; };
 		FA909ACC150A172E0046C653 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = FA909ACB150A172E0046C653 /* icon.icns */; };
+		FAA1C0EA15193AD800718D7B /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA1C0E915193AD800718D7B /* MAAttachedWindow.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FABD1CD3151553BE00167776 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FABD1CD1151553BE00167776 /* Localizable.strings */; };
 		FABD1CD5151553CD00167776 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FABD1CD1151553BE00167776 /* Localizable.strings */; };
+		FAEF1978151BA26500B4522E /* NSApplication+Relaunch.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEF1977151BA26500B4522E /* NSApplication+Relaunch.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -77,13 +84,25 @@
 		FA39972714F3E33A001334C0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = es; path = es.lproj/Credits.rtf; sourceTree = "<group>"; };
 		FA39972914F3E33A001334C0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FA39972D14F3E342001334C0 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = "Torrent Hunter/es.lproj/MainMenu.xib"; sourceTree = "<group>"; };
+		FA4ED6B51519F8FF009316B1 /* CustomStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomStatusView.h; path = src/CustomStatusView.h; sourceTree = "<group>"; };
+		FA4ED6B61519F8FF009316B1 /* CustomStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomStatusView.m; path = src/CustomStatusView.m; sourceTree = "<group>"; };
+		FA4ED6C4151A5C39009316B1 /* TableViewSUIController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableViewSUIController.h; path = src/TableViewSUIController.h; sourceTree = "<group>"; };
+		FA4ED6C5151A5C39009316B1 /* TableViewSUIController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TableViewSUIController.m; path = src/TableViewSUIController.m; sourceTree = "<group>"; };
+		FA4ED6D3151A8674009316B1 /* SearchOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchOperation.h; path = src/SearchOperation.h; sourceTree = "<group>"; };
+		FA4ED6D4151A8675009316B1 /* SearchOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchOperation.m; path = src/SearchOperation.m; sourceTree = "<group>"; };
 		FA6B9C9414EC0AE5006DD9D0 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		FA8341B21519ED18009DE6F1 /* icon_sui_b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_sui_b.png; path = "Torrent Hunter/Images/icon_sui_b.png"; sourceTree = "<group>"; };
+		FA8341B31519ED18009DE6F1 /* icon_sui_w.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_sui_w.png; path = "Torrent Hunter/Images/icon_sui_w.png"; sourceTree = "<group>"; };
 		FA909ACB150A172E0046C653 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
+		FAA1C0E815193AD800718D7B /* MAAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MAAttachedWindow.h; path = "Torrent Hunter/src/MAAttachedWindow/MAAttachedWindow.h"; sourceTree = "<group>"; };
+		FAA1C0E915193AD800718D7B /* MAAttachedWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MAAttachedWindow.m; path = "Torrent Hunter/src/MAAttachedWindow/MAAttachedWindow.m"; sourceTree = "<group>"; };
 		FABD1CCD1515537700167776 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "/Users/Alex/Dropbox/Proyectos/Torrent-Hunter/Torrent Hunter/en.lproj/InfoPlist.strings"; sourceTree = "<absolute>"; };
 		FABD1CCE1515537700167776 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = "/Users/Alex/Dropbox/Proyectos/Torrent-Hunter/Torrent Hunter/en.lproj/Credits.rtf"; sourceTree = "<absolute>"; };
 		FABD1CCF1515537700167776 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "/Users/Alex/Dropbox/Proyectos/Torrent-Hunter/en.lproj/MainMenu.xib"; sourceTree = "<absolute>"; };
 		FABD1CD2151553BE00167776 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FABD1CD4151553CD00167776 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FAEF1976151BA26500B4522E /* NSApplication+Relaunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSApplication+Relaunch.h"; sourceTree = "<group>"; };
+		FAEF1977151BA26500B4522E /* NSApplication+Relaunch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+Relaunch.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,12 +185,19 @@
 		FA28C29A14DB30770026F771 /* Torrent Hunter */ = {
 			isa = PBXGroup;
 			children = (
+				FAEF197A151BA26B00B4522E /* Relaunch */,
 				FA353C3114FD3D4000F7BD36 /* AppDelegate.h */,
 				FA353C3214FD3D4000F7BD36 /* AppDelegate.m */,
+				FA4ED6B51519F8FF009316B1 /* CustomStatusView.h */,
+				FA4ED6B61519F8FF009316B1 /* CustomStatusView.m */,
 				FA353C3314FD3D4000F7BD36 /* ParseWeb.h */,
 				FA353C3414FD3D4000F7BD36 /* ParseWeb.m */,
 				FA353C3514FD3D4000F7BD36 /* TableViewController.h */,
 				FA353C3614FD3D4000F7BD36 /* TableViewController.m */,
+				FA4ED6C4151A5C39009316B1 /* TableViewSUIController.h */,
+				FA4ED6C5151A5C39009316B1 /* TableViewSUIController.m */,
+				FA4ED6D3151A8674009316B1 /* SearchOperation.h */,
+				FA4ED6D4151A8675009316B1 /* SearchOperation.m */,
 				FA353C3714FD3D4000F7BD36 /* Torrent.h */,
 				FA353C3814FD3D4000F7BD36 /* Torrent.m */,
 			);
@@ -195,6 +221,8 @@
 			isa = PBXGroup;
 			children = (
 				FA909ACB150A172E0046C653 /* icon.icns */,
+				FA8341B21519ED18009DE6F1 /* icon_sui_b.png */,
+				FA8341B31519ED18009DE6F1 /* icon_sui_w.png */,
 				FA353C4914FD3D8000F7BD36 /* favicon_dem.png */,
 				FA353C4A14FD3D8000F7BD36 /* favicon_tpb.png */,
 			);
@@ -213,15 +241,34 @@
 			path = "Torrent Hunter";
 			sourceTree = "<group>";
 		};
+		FAA1C0ED15193AF100718D7B /* MAAttacheWindow */ = {
+			isa = PBXGroup;
+			children = (
+				FAA1C0E815193AD800718D7B /* MAAttachedWindow.h */,
+				FAA1C0E915193AD800718D7B /* MAAttachedWindow.m */,
+			);
+			name = MAAttacheWindow;
+			sourceTree = "<group>";
+		};
 		FAE4E0BC14E177BD0022AF4F /* Other sources */ = {
 			isa = PBXGroup;
 			children = (
+				FAA1C0ED15193AF100718D7B /* MAAttacheWindow */,
 				FA353C4F14FD3D8300F7BD36 /* Images */,
 				FA39972C14F3E342001334C0 /* MainMenu.xib */,
 				FA6B9C8C14EC0A25006DD9D0 /* HTMLParser */,
 				FA28C29B14DB30770026F771 /* Supporting Files */,
 			);
 			name = "Other sources";
+			sourceTree = "<group>";
+		};
+		FAEF197A151BA26B00B4522E /* Relaunch */ = {
+			isa = PBXGroup;
+			children = (
+				FAEF1976151BA26500B4522E /* NSApplication+Relaunch.h */,
+				FAEF1977151BA26500B4522E /* NSApplication+Relaunch.m */,
+			);
+			name = Relaunch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,6 +357,8 @@
 				FA043EBC15129899000D5559 /* dsa_pub.pem in Resources */,
 				FABD1CD3151553BE00167776 /* Localizable.strings in Resources */,
 				FABD1CD5151553CD00167776 /* Localizable.strings in Resources */,
+				FA8341B41519ED18009DE6F1 /* icon_sui_b.png in Resources */,
+				FA8341B51519ED18009DE6F1 /* icon_sui_w.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +383,11 @@
 				FA353C4214FD3D4C00F7BD36 /* HTMLNode.m in Sources */,
 				FA353C4314FD3D4C00F7BD36 /* HTMLParser.m in Sources */,
 				FA353C4714FD3D5800F7BD36 /* main.m in Sources */,
+				FAA1C0EA15193AD800718D7B /* MAAttachedWindow.m in Sources */,
+				FA4ED6B71519F8FF009316B1 /* CustomStatusView.m in Sources */,
+				FA4ED6C6151A5C39009316B1 /* TableViewSUIController.m in Sources */,
+				FA4ED6D5151A8675009316B1 /* SearchOperation.m in Sources */,
+				FAEF1978151BA26500B4522E /* NSApplication+Relaunch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

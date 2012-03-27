@@ -1,33 +1,1 @@
-//
-//  AppDelegate.m
-//  Torrent Hunter
-//
-//  Created by Alejandro Silva on 02/02/12.
-//  Copyright (c) 2012 AH-Develop. All rights reserved.
-//
-
-#import "AppDelegate.h"
-
-@implementation AppDelegate
-
-@synthesize window = _window;
-
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
-    // Default settings
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    if (![userDefaults integerForKey:@"CheckDem"] && ![userDefaults integerForKey:@"CheckTPB"]) {
-        [userDefaults setInteger:1 forKey:@"CheckDem"];
-        [userDefaults setInteger:1 forKey:@"CheckTPB"];
-    }
-    // Check for updates
-    [updater checkForUpdatesInBackground];
-}
-
-- (IBAction)defaultService:(id)sender {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setInteger:1 forKey:@"CheckDem"];
-    [userDefaults setInteger:1 forKey:@"CheckTPB"];
-}
-
-@end
+////  AppDelegate.m//  Torrent Hunter////  Created by Alejandro Silva on 02/02/12.//  Copyright (c) 2012 AH-Develop. All rights reserved.//#import "AppDelegate.h"#import "CustomStatusView.h"#import "NSApplication+Relaunch.h"@implementation AppDelegate@synthesize window = _window;- (void)applicationDidFinishLaunching:(NSNotification *)aNotification{    // Default settings    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];    if (![userDefaults integerForKey:@"CheckDem"] && ![userDefaults integerForKey:@"CheckTPB"]) {        [userDefaults setInteger:1 forKey:@"CheckDem"];        [userDefaults setInteger:1 forKey:@"CheckTPB"];    }        if (![userDefaults valueForKey:@"CheckAppType"]) {        [userDefaults setValue:@"Dock" forKey:@"CheckAppType"];    }        // Check for updates    [updater checkForUpdatesInBackground];    NSString *iconInDock = [userDefaults valueForKey:@"CheckAppType"];    if ([iconInDock isEqualToString:@"Dock"]) {        ProcessSerialNumber psn = { 0, kCurrentProcess };        TransformProcessType(&psn, kProcessTransformToForegroundApplication);        [_window makeKeyAndOrderFront:nil];    }    else {        statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:33];        //[statusBarItem setImage:[NSImage imageNamed:@"icon_sui_b"]];        NSRect frame = NSMakeRect(0, 0, 0, [[NSStatusBar systemStatusBar] thickness]);        [statusBarItem setView:[[CustomStatusView alloc] initWithFrame:frame controller:self]];        ProcessSerialNumber psn = { 0, kCurrentProcess };        TransformProcessType(&psn, kProcessTransformToUIElementApplication);        NSApplication *app = [NSApplication alloc];        [app setPresentationOptions:NSApplicationPresentationAutoHideMenuBar];    }}- (IBAction)changeAppType:(id)sender {    NSInteger button =    NSRunAlertPanel(@"That task requires a relaunch (sorry!)",                    @"Should we get it over with now?",                    @"Relaunch now",                    @"I’ll do it later",                    nil);    if (button == NSAlertDefaultReturn) {        [NSApp relaunch:nil];    }}- (IBAction)defaultService:(id)sender {    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];    [userDefaults setInteger:1 forKey:@"CheckDem"];    [userDefaults setInteger:1 forKey:@"CheckTPB"];    [userDefaults setValue:@"Dock" forKey:@"CheckAppType"];}- (void)windowDidResignKey {    CustomStatusView *custom = [[CustomStatusView alloc] init];    NSRect frame = [[self window] frame];    NSPoint pt = NSMakePoint(NSMidX(frame), NSMidY(frame));    [self toggleAttachedWindowAtPoint:pt];    [custom setClicked];    NSLog(@"cambio");    [custom setNeedsDisplay:YES];}- (void)toggleAttachedWindowAtPoint:(NSPoint)pt {    // Attach/detach window.    if (!attachedWindow) {        attachedWindow = [[MAAttachedWindow alloc] initWithView:statusBarview                                                 attachedToPoint:pt                                                        inWindow:nil                                                          onSide:MAPositionBottom                                                      atDistance:11.0];        [[NSNotificationCenter defaultCenter] addObserver:self                                                 selector:@selector(windowDidResignKey)                                                     name:NSWindowDidResignKeyNotification                                                   object:attachedWindow];        [attachedWindow setLevel:NSMainMenuWindowLevel+1];        /*[[NSAnimationContext currentContext] setDuration:0.8];        [[attachedWindow animator] setAlphaValue:1.0];        [NSAnimationContext endGrouping];*/        [attachedWindow makeKeyAndOrderFront:self];    } else {        /*[[NSAnimationContext currentContext] setDuration:0.2];        [[attachedWindow animator] setAlphaValue:0.0];        [NSAnimationContext endGrouping];*/        [attachedWindow orderOut:self];        attachedWindow = nil;    }    }@end

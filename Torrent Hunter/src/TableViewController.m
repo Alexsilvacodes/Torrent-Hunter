@@ -25,6 +25,10 @@
 }
 
 - (void)awakeFromNib {
+    // set up growl notifications regardless of whether or not we're supposed to growl
+    //[GrowlApplicationBridge setGrowlDelegate:self];
+    
+    searchEnded = NO;
     [searchField setRecentSearches:recentSearches];
     [torrentTableView setTarget:self];
     [torrentTableView setDoubleAction:NSSelectorFromString(@"doubleClick:")];
@@ -43,9 +47,39 @@
 
 - (void)doubleClick:(id)sender {
     if ([list count] > 0 && [[torrentTableView selectedRowIndexes] count] == 1) {
-        NSInteger i = [torrentTableView clickedRow];
-        NSURL *magnet = [NSURL URLWithString:[[list objectAtIndex:i] magnetLink]];
-        [[NSWorkspace sharedWorkspace] openURL:magnet];
+        BOOL magnetAppSet = NO;
+        NSString *plistPath = NSHomeDirectory();
+        plistPath = [plistPath stringByAppendingString:@"/Library/Preferences/com.apple.LaunchServices.plist"];
+        NSDictionary *plistData = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
+        NSArray *arrayData = [plistData objectForKey:[[plistData allKeys] objectAtIndex:0]];
+        for (NSDictionary *elemDict in arrayData) {
+            if ([[elemDict objectForKey:@"LSHandlerURLScheme"] isEqual:@"magnet"]) {
+                magnetAppSet = YES;
+            }
+        }
+        if (magnetAppSet) {
+            NSInteger i = [torrentTableView clickedRow];
+            NSURL *magnet = [NSURL URLWithString:[[list objectAtIndex:i] magnetLink]];
+            //NSString *titleGrowl = @"Torrent Hunter";
+            //NSString *msgGrowl = NSLocalizedString(@"Downloading click result", "Growl -> description");
+            //[GrowlApplicationBridge notifyWithTitle:titleGrowl description:msgGrowl notificationName:nil iconData:nil priority:0 isSticky:NO clickContext:nil];
+            [[NSWorkspace sharedWorkspace] openURL:magnet];
+        }
+        else {
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert addButtonWithTitle:NSLocalizedString(@"Download", "Alert -> download")];
+            [alert addButtonWithTitle:NSLocalizedString(@"Cancel", "Alert -> cancel")];
+            [alert setMessageText:NSLocalizedString(@"Magnet Link application", "Alert -> title")];
+            [alert setInformativeText:NSLocalizedString(@"No torrent download application founded. Do you want to download Transsmision client?", "Alert -> description")];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:nil];
+        }
+    }
+}
+
+- (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    if (returnCode == NSAlertFirstButtonReturn) {
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://www.transmissionbt.com/"]];
     }
 }
 
@@ -96,6 +130,22 @@
     [errorLabel setStringValue:@""];
 }
 
+- (void)triggerTimeout60 {
+    timerTimeout = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(searchTimeoutAction60) userInfo:nil repeats:NO];
+}
+
+- (void)searchTimeoutAction60 {
+    if (!searchEnded) {
+        [menuPreferences setEnabled:YES];
+        [botonSettings setEnabled:YES];
+        [botonSearch setEnabled:YES];
+        [searchField setStringValue:@""];
+        [searchField setEnabled:YES];
+        [self search:nil];
+    }
+    searchEnded = NO;
+}
+
 - (void)loadDatainTableView:(NSString *)type {
     NSString *urlTPB = @"http://thepiratebay.se/search/";
     NSString *urlDem = @"http://www.demonoid.me/files/?to=0&uid=0&category=0&subcategory=0&language=0&seeded=0&quality=0&external=2&query=";
@@ -117,9 +167,12 @@
     if ([drawerSettings state] == 1 || [drawerSettings state] == 2) {
         [drawerSettings performSelectorOnMainThread:@selector(close) withObject:nil waitUntilDone:NO];
     }
+    [menuPreferences setEnabled:NO];
     [searchField setEnabled:NO];
     [botonSettings setEnabled:NO];
     [botonSearch setEnabled:NO];
+
+    [self performSelectorOnMainThread:@selector(triggerTimeout60) withObject:nil waitUntilDone:NO];
     
     // if not void searchField, not void torrents Array or not connection error
     if ([checkTPB state] == NSOnState && [checkDem state] == NSOnState) {
@@ -129,10 +182,10 @@
             torrents = torrentsTPB;
             [torrents addObjectsFromArray:torrentsDem];
         }
-        else if (([torrentsDem isNotEqualTo:@"void"] && [torrentsDem isNotEqualTo:@"-1"] && [torrentsDem isNotEqualTo:@"-2"]) && ([torrentsTPB isEqualTo:@"void"] || [torrentsDem isEqualTo:@"-1"] || [torrentsDem isEqualTo:@"-2"])) {
+        else if (([torrentsDem isNotEqualTo:@"void"] && [torrentsDem isNotEqualTo:@"-1"] && [torrentsDem isNotEqualTo:@"-2"]) && ([torrentsTPB isEqualTo:@"void"] || [torrentsTPB isEqualTo:@"-1"] || [torrentsTPB isEqualTo:@"-2"])) {
             torrents = torrentsDem;
         }
-        else if (([torrentsDem isEqualTo:@"void"] || [torrentsDem isEqualTo:@"-1"] || [torrentsDem isEqualTo:@"-2"]) && ([torrentsTPB isNotEqualTo:@"void"] && [torrentsDem isNotEqualTo:@"-1"] && [torrentsDem isNotEqualTo:@"-2"])) {
+        else if (([torrentsDem isEqualTo:@"void"] || [torrentsDem isEqualTo:@"-1"] || [torrentsDem isEqualTo:@"-2"]) && ([torrentsTPB isNotEqualTo:@"void"] && [torrentsTPB isNotEqualTo:@"-1"] && [torrentsTPB isNotEqualTo:@"-2"])) {
             torrents = torrentsTPB;
         }
         else {
@@ -154,7 +207,6 @@
     [list removeAllObjects];
     
     if ([torrents isNotEqualTo:@"-1"] && [torrents isNotEqualTo:@"-2"] && [torrents isNotEqualTo:@"void"]){
-        
         for (Torrent *tor in torrents){
             [list addObject:tor];
         }
@@ -183,10 +235,14 @@
         [self performSelectorOnMainThread:@selector(showAlertError:) withObject:error waitUntilDone:NO];
     }
     [searchField setStringValue:@""];
+    [menuPreferences setEnabled:YES];
     [searchField setEnabled:YES];
     [botonSettings setEnabled:YES];
     [botonSearch setEnabled:YES];
     [progressGear stopAnimation:self];
+    searchEnded = YES;
+    /* Cancelar timer */
+    [timerTimeout invalidate];
     
 }
 

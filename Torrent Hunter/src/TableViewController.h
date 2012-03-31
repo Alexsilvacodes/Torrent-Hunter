@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
+#import <Growl/Growl.h>
 #import "ParseWeb.h"
 
 @interface TableViewController : NSObject <NSTableViewDataSource> {
@@ -24,11 +25,14 @@
     IBOutlet NSButton *botonSettings;
     IBOutlet NSButton *checkTPB;
     IBOutlet NSButton *checkDem;
+    IBOutlet NSMenuItem *menuPreferences;
     IBOutlet NSDrawer *drawerSettings;
     NSInteger clicked;
     ParseWeb *parser;
     NSMutableArray *list;
     NSMutableArray *recentSearches;
+    NSTimer *timerTimeout;
+    BOOL searchEnded;
 }
 
 @property (nonatomic, retain) ParseWeb *parser;
@@ -40,7 +44,10 @@
 - (IBAction)showUserInWeb:(id)sender;
 - (void)doubleClick:(id)sender;
 - (void)showAlertError:(NSString *)error;
+- (void)triggerTimeout60;
+- (void)searchTimeoutAction60;
 - (void)clearLabel;
 - (void)loadDatainTableView:(NSString *)type;
+- (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
 
 @end

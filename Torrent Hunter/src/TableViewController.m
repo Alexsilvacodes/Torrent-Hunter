@@ -148,7 +148,7 @@
 
 - (void)loadDatainTableView:(NSString *)type {
     NSString *urlTPB = @"http://thepiratebay.se/search/";
-    NSString *urlDem = @"http://www.demonoid.me/files/?to=0&uid=0&category=0&subcategory=0&language=0&seeded=0&quality=0&external=2&query=";
+    //NSString *urlDem = @"http://www.demonoid.me/files/?to=0&uid=0&category=";
     NSString *error = [[NSString alloc] init];
     NSString *stringLabelNTorrent = [[NSString alloc] init];
     NSString *toolTip = NSLocalizedString(@"Results for: ", "Tooltip -> results");
@@ -159,8 +159,36 @@
     // Do the parse
     NSString *searchValue = [searchField stringValue];
     NSString *searchStringTPB = [urlTPB stringByAppendingString:searchValue];
-    NSString *searchStringDem = [urlDem stringByAppendingString:searchValue];
-    searchStringDem = [searchStringDem stringByAppendingString:@"&sort=S"];
+    
+    if ([radioAll state] == NSOnState) {
+        // Todo
+        //urlDem = [urlDem stringByAppendingString:@"0"];
+        searchStringTPB = [searchStringTPB stringByAppendingString:@"/0/7/0"];
+    }
+    else if ([radioApps state] == NSOnState) {
+        // Apps
+        //urlDem = [urlDem stringByAppendingString:@"5"];
+        searchStringTPB = [searchStringTPB stringByAppendingString:@"/0/7/300"];
+    }
+    else if ([radioVids state] == NSOnState) {
+        // Videos
+        //urlDem = [urlDem stringByAppendingString:@"1"];
+        searchStringTPB = [searchStringTPB stringByAppendingString:@"/0/7/200"];
+    }
+    else if ([radioGames state] == NSOnState) {
+        // Games
+        //urlDem = [urlDem stringByAppendingString:@"4"];
+        searchStringTPB = [searchStringTPB stringByAppendingString:@"/0/7/400"];
+    }
+    else if ([radioMusic state] == NSOnState) {
+        // Music
+        //urlDem = [urlDem stringByAppendingString:@"2"];
+        searchStringTPB = [searchStringTPB stringByAppendingString:@"/0/7/101"];
+    }
+    
+    //urlDem = [urlDem stringByAppendingString:@"&subcategory=0&language=0&seeded=0&quality=0&external=2&query="];
+    //NSString *searchStringDem = [urlDem stringByAppendingString:searchValue];
+    //searchStringDem = [searchStringDem stringByAppendingString:@"&sort=S"];
     parser = [[ParseWeb alloc] init];
     [self clearLabel];
     [progressGear startAnimation:self];
@@ -175,9 +203,9 @@
     [self performSelectorOnMainThread:@selector(triggerTimeout60) withObject:nil waitUntilDone:NO];
     
     // if not void searchField, not void torrents Array or not connection error
-    if ([checkTPB state] == NSOnState && [checkDem state] == NSOnState) {
+    /*if ([checkTPB state] == NSOnState && [checkDem state] == NSOnState) {
         torrentsTPB = [parser loadHTMLbyURLTPB:searchStringTPB];
-        torrentsDem = [parser loadHTMLbyURLDem:searchStringDem];
+        //torrentsDem = [parser loadHTMLbyURLDem:searchStringDem];
         if (([torrentsDem isNotEqualTo:@"void"] && [torrentsDem isNotEqualTo:@"-1"] && [torrentsDem isNotEqualTo:@"-2"]) && ([torrentsTPB isNotEqualTo:@"void"] && [torrentsDem isNotEqualTo:@"-1"] && [torrentsDem isNotEqualTo:@"-2"])) {
             torrents = torrentsTPB;
             [torrents addObjectsFromArray:torrentsDem];
@@ -204,7 +232,9 @@
         [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(clearLabel) userInfo:nil repeats:NO];
         NSLog(@"No Service");
     }
-    [list removeAllObjects];
+    [list removeAllObjects];*/
+    
+    torrents = [parser loadHTMLbyURLTPB:searchStringTPB];
     
     if ([torrents isNotEqualTo:@"-1"] && [torrents isNotEqualTo:@"-2"] && [torrents isNotEqualTo:@"void"]){
         for (Torrent *tor in torrents){

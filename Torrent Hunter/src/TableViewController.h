@@ -25,6 +25,11 @@
     IBOutlet NSButton *botonSettings;
     IBOutlet NSButton *checkTPB;
     IBOutlet NSButton *checkDem;
+    IBOutlet NSButtonCell *radioAll;
+    IBOutlet NSButtonCell *radioApps;
+    IBOutlet NSButtonCell *radioVids;
+    IBOutlet NSButtonCell *radioGames;
+    IBOutlet NSButtonCell *radioMusic;
     IBOutlet NSMenuItem *menuPreferences;
     IBOutlet NSDrawer *drawerSettings;
     NSInteger clicked;

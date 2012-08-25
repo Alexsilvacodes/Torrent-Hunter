@@ -38,6 +38,7 @@
         if ([urlString isEqualTo:@"http://thepiratebay.se/search/"]){
             [NSException raise:@"VoidError" format:@""];
         }
+        NSLog(@"%@",urlString);
         NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         parser = [[HTMLParser alloc] initWithContentsOfURL:url error:&error];
 
@@ -138,7 +139,7 @@
 /*******************/
 /* Demonoid Method */
 /*******************/
-
+/*
 - (id)loadHTMLbyURLDem:(NSString *)urlString {
     NSError *error = nil;
     int numPages;
@@ -149,6 +150,7 @@
         if ([urlString isEqualTo:@"http://www.demonoid.me/files/?to=0&uid=0&category=0&subcategory=0&language=0&seeded=0&quality=0&external=2&query=&sort=S"]){
             [NSException raise:@"VoidError" format:@""];
         }
+        NSLog(@"%@",urlString);
         NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         parser = [[HTMLParser alloc] initWithContentsOfURL:url error:&error];
         
@@ -157,8 +159,9 @@
         }
         
         HTMLNode *bodyNode = [parser body];
-        
+*/        
         /* Compobacion de existencia */
+/*
         NSArray *bNodes = [bodyNode findChildTags:@"b"];
         for (HTMLNode *bNode in bNodes) {
             if ([[bNode contents] isEqualToString:@"No torrents found"]) {
@@ -167,7 +170,9 @@
         }
         
         HTMLNode *tableNode = [bodyNode findChildWithAttribute:@"class" matchingName:@"font_12px" allowPartial:FALSE];
+*/
         /* Titulo */
+/*
         NSArray *tdNodes1Pad = [tableNode findChildrenOfClass:@"tone_1_pad"];
         NSArray *tdNodes3Pad = [tableNode findChildrenOfClass:@"tone_3_pad"];
         NSMutableArray *titleNodes = [[NSMutableArray alloc] init];
@@ -175,34 +180,35 @@
             [titleNodes addObject:[tdNodes1Pad objectAtIndex:i]];
             [titleNodes addObject:[tdNodes3Pad objectAtIndex:i]];
         }
+*/
         /* Torrent URL */
-        NSArray *urlNodes = [tableNode findChildrenWithAttribute:@"href" matchingName:@"/files/details/" allowPartial:YES];
+        //NSArray *urlNodes = [tableNode findChildrenWithAttribute:@"href" matchingName:@"/files/details/" allowPartial:YES];
         /* Usuario */
-        NSArray *aUserNodes = [tableNode findChildrenWithAttribute:@"href" matchingName:@"/users/" allowPartial:YES];
+        //NSArray *aUserNodes = [tableNode findChildrenWithAttribute:@"href" matchingName:@"/users/" allowPartial:YES];
         /* Magnet */
-        NSArray *aMagnetNodes = [tableNode findChildrenWithAttribute:@"href" matchingName:@"/files/downloadmagnet/" allowPartial:YES];
+        //NSArray *aMagnetNodes = [tableNode findChildrenWithAttribute:@"href" matchingName:@"/files/downloadmagnet/" allowPartial:YES];
         /* Seeders */
-        NSArray *fontSNodes = [tableNode findChildrenOfClass:@"green"];
+        //NSArray *fontSNodes = [tableNode findChildrenOfClass:@"green"];
         /* Leechers */
-        NSArray *fontLNodes = [tableNode findChildrenOfClass:@"red"];
+        //NSArray *fontLNodes = [tableNode findChildrenOfClass:@"red"];
         /* Size */
-        NSArray *tdNodes = [tableNode findChildTags:@"td"];
+        /*NSArray *tdNodes = [tableNode findChildTags:@"td"];
         NSMutableArray *tdSizeNodes = [[NSMutableArray alloc] init];
         for (HTMLNode *tdNode in tdNodes) {
             if ([[tdNode getAttributeNamed:@"align"] isEqualToString:@"right"]) {
                 [tdSizeNodes addObject:tdNode];
             }
-        }
+        }*/
         /* Times completed */
-        NSArray *fontBNodes = [tableNode findChildrenOfClass:@"blue"];
+        /*NSArray *fontBNodes = [tableNode findChildrenOfClass:@"blue"];
         
         HTMLNode *fontErrorNode = [bodyNode findChildWithAttribute:@"size" matchingName:@"+2" allowPartial:NO];
         if ([[fontErrorNode contents] isEqualToString:@"Maintenance"]) {
             [NSException raise:@"ConectionError" format:@""];
         }
-        else{
+        else{*/
             /* ------- Numero de paginas ------ */
-            
+            /*
             numItems = [[[[[tableNode findChildTag:@"strong"] contents] componentsSeparatedByString:@" "] objectAtIndex:0] intValue];
             nItems = nItems + numItems;
             if (numItems % 30 != 0) {
@@ -211,33 +217,34 @@
             else {
                 numPages = numItems / 30;
             }
-            
+            */
             /* =============================== */
-            int j = 0;
-            for (HTMLNode *titleNode in titleNodes) {
-                Torrent *current = [[Torrent alloc] init];
+            //int j = 0;
+            //for (HTMLNode *titleNode in titleNodes) {
+                //Torrent *current = [[Torrent alloc] init];
                 
                 /* Title */
-                [current setTitle:[[titleNode findChildTag:@"a"] contents]];
+                //[current setTitle:[[titleNode findChildTag:@"a"] contents]];
                 /* User */
-                [current setUserName:[[[[aUserNodes objectAtIndex:j] getAttributeNamed:@"href"] componentsSeparatedByString:@"/users/"] objectAtIndex:1]];
+                //[current setUserName:[[[[aUserNodes objectAtIndex:j] getAttributeNamed:@"href"] componentsSeparatedByString:@"/users/"] objectAtIndex:1]];
                 /* User URL */
-                NSString *user = @"http://demonoid.me";
-                user = [user stringByAppendingString:[[aUserNodes objectAtIndex:j] getAttributeNamed:@"href"]];
-                [current setUserURL:user];
+                //NSString *user = @"http://demonoid.me";
+                //user = [user stringByAppendingString:[[aUserNodes objectAtIndex:j] getAttributeNamed:@"href"]];
+                //[current setUserURL:user];
                 /* Source */
-                [current setSource:[NSImage imageNamed:@"favicon_dem.png"]];
+                //[current setSource:[NSImage imageNamed:@"favicon_dem.png"]];
                 /* Magnet Link */
-                NSString *magnet = @"http://demonoid.me";
-                magnet = [magnet stringByAppendingString:[[aMagnetNodes objectAtIndex:j] getAttributeNamed:@"href"]];
-                [current setMagnetLink:magnet];
+                //NSString *magnet = @"http://demonoid.me";
+                //magnet = [magnet stringByAppendingString:[[aMagnetNodes objectAtIndex:j] getAttributeNamed:@"href"]];
+                //[current setMagnetLink:magnet];
                 /* Seeders */
-                [current setSeeders:[[[fontSNodes objectAtIndex:j] contents] intValue]];
+                //[current setSeeders:[[[fontSNodes objectAtIndex:j] contents] intValue]];
                 /* Leechers */
-                [current setLeechers:[[[fontLNodes objectAtIndex:j] contents] intValue]];
+                //[current setLeechers:[[[fontLNodes objectAtIndex:j] contents] intValue]];
                 /* Size */
-                [current setSize:[[tdSizeNodes objectAtIndex:j] contents]];
+                //[current setSize:[[tdSizeNodes objectAtIndex:j] contents]];
                 /* Description */
+/*
                 NSString *desc = [[NSString alloc] init];
                 desc = [desc stringByAppendingString:NSLocalizedString(@"Completed: ", "Description -> Completed")];
                 desc = [desc stringByAppendingString:[[fontBNodes objectAtIndex:j] contents]];
@@ -246,7 +253,9 @@
                 desc = [desc stringByAppendingString:NSLocalizedString(@", uploaded by ", "Description -> Uploaded")];
                 desc = [desc stringByAppendingString:[[[[aUserNodes objectAtIndex:j] getAttributeNamed:@"href"] componentsSeparatedByString:@"/users/"] objectAtIndex:1]];
                 [current setDescription:desc];
+ */
                 /* Torrent URL */
+/*
                 NSString *urlDem = @"http://www.demonoid.me";
                 urlDem = [urlDem stringByAppendingString:[[urlNodes objectAtIndex:j] getAttributeNamed:@"href"]];
                 [current setUrl:urlDem];
@@ -270,5 +279,5 @@
         }
     }
 }
-
+*/
 @end

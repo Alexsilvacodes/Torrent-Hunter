@@ -20,6 +20,6 @@
 @property int nItems;
 
 - (id)loadHTMLbyURLTPB:(NSString *)urlString;
-- (id)loadHTMLbyURLDem:(NSString *)urlString;
+//- (id)loadHTMLbyURLDem:(NSString *)urlString;
 
 @end

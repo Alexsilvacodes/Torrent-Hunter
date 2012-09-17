@@ -153,8 +153,8 @@
     NSString *stringLabelNTorrent = [[NSString alloc] init];
     NSString *toolTip = NSLocalizedString(@"Results for: ", "Tooltip -> results");
     id torrents = nil;
-    id torrentsTPB = nil;
-    id torrentsDem = nil;
+    //id torrentsTPB = nil;
+    //id torrentsDem = nil;
     
     // Do the parse
     NSString *searchValue = [searchField stringValue];
@@ -231,8 +231,8 @@
         [drawerSettings performSelectorOnMainThread:@selector(open) withObject:nil waitUntilDone:NO];
         [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(clearLabel) userInfo:nil repeats:NO];
         NSLog(@"No Service");
-    }
-    [list removeAllObjects];*/
+    }*/
+    [list removeAllObjects];
     
     torrents = [parser loadHTMLbyURLTPB:searchStringTPB];
     

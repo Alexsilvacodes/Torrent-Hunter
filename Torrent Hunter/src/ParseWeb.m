@@ -97,6 +97,8 @@
                     NSArray *tdNodes = [trNode findChildTags:@"td"];
                     NSArray *aNodes = [trNode findChildTags:@"a"];
                     
+                    
+                    
                     /* Titulo */
                     [current setTitle:[titleNode contents]];
                     /* Magnet */
@@ -117,6 +119,7 @@
                     /* Logo Servicio */
                     [current setSource:[NSImage imageNamed:@"favicon_tpb.png"]];
                     
+                    
                     [torrents addObject:current];
                 }
             }
@@ -134,6 +137,19 @@
             return @"void";
         }
     }
+}
+
+// Metodo para obtener la descripcion completa del torrent
+// Se obtiene de la url enviada segun el torrent seleccionado y devuelve el string
+- (id)getDesc:(NSString *)url {
+    NSError *error = nil;
+
+    NSURL *urlTorrent = [NSURL URLWithString:url];
+    HTMLParser *parserTorrent = [[HTMLParser alloc] initWithContentsOfURL:urlTorrent error:&error];
+    
+    /* Descripcion completa */
+    HTMLNode *preNode = [[parserTorrent body] findChildTag:@"pre"];
+    return [preNode contents];
 }
 
 /*******************/

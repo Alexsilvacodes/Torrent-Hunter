@@ -12,7 +12,6 @@
 @implementation TableViewController
 
 @synthesize parser;
-@synthesize popoverTorrent;
 
 - (id)init {
     self = [super init];
@@ -83,11 +82,12 @@
     }
 }
 
-- (IBAction)showPopover:(id)sender {
-    if ([list count] >0 && [torrentTableView selectedRow] != -1 ) {
+- (IBAction)showTorrentPanel:(id)sender {
+    if (![panelTorrent isVisible] && [list count] >0 && [torrentTableView selectedRow] != -1) {
         NSInteger i = [torrentTableView selectedRow];
         NSString *desc = [[NSString alloc] initWithString:[[list objectAtIndex:i] description]];
         NSString *user = [[NSString alloc] initWithString:[[list objectAtIndex:i] userName]];
+        NSString *descComp = [[NSString alloc] initWithString:[parser getDesc:[[list objectAtIndex:i] url]]];
         clicked = i;
         if ([[[list objectAtIndex:i] userURL] isEqualTo:@"NoUser"]) {
             [botonUser setEnabled:NO];
@@ -98,7 +98,12 @@
             [botonUser setToolTip:user];
         }
         [descriptionField setStringValue:desc];
-        [popoverTorrent showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMinYEdge];
+        [completeDescField setString:descComp];
+        [panelTorrent setFrameOrigin:NSMakePoint([window frame].origin.x+830, [window frame].origin.y+130)];
+        [panelTorrent setIsVisible:YES];
+    }
+    else {
+        [panelTorrent close];
     }
 }
 

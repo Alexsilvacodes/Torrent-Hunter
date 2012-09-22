@@ -21,6 +21,7 @@
 @synthesize leechers;
 @synthesize source;
 @synthesize pages;
+@synthesize completeDesc;
 
 - (id)init {
     self = [super init];
@@ -32,6 +33,7 @@
         userURL = @"";
         userName = @"";
         size = @"";
+        completeDesc = @"";
         seeders = 0;
         leechers = 0;
         pages = 0;

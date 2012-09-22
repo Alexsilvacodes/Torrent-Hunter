@@ -1,5 +1,5 @@
 # Author
-Alejandro Silva (@alexsays28)
+Alejandro Silva ([@alexsays28](https://twitter.com/alexsays28))
 # Actual Version
 0.9.6 Build 2
 # Special thanks to

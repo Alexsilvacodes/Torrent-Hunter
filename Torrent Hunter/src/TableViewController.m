@@ -31,6 +31,7 @@
     [searchField setRecentSearches:recentSearches];
     [torrentTableView setTarget:self];
     [torrentTableView setDoubleAction:NSSelectorFromString(@"doubleClick:")];
+    [torrentTableView setAction:NSSelectorFromString(@"monoClick:")];
 }
 
 - (IBAction)search:(id)sender {
@@ -42,6 +43,26 @@
     
     /* Add the operation to the queue */
     [threads addOperation:task];
+}
+
+- (void)monoClick:(id)sender{
+    if ([list count] >0 && [torrentTableView selectedRow] != -1) {
+        NSInteger i = [torrentTableView selectedRow];
+        NSString *desc = [[NSString alloc] initWithString:[[list objectAtIndex:i] description]];
+        NSString *user = [[NSString alloc] initWithString:[[list objectAtIndex:i] userName]];
+        NSString *descComp = [[NSString alloc] initWithString:[parser getDesc:[[list objectAtIndex:i] url]]];
+        clicked = i;
+        if ([[[list objectAtIndex:i] userURL] isEqualTo:@"NoUser"]) {
+            [botonUser setEnabled:NO];
+            [botonUser setToolTip:user];
+        }
+        else {
+            [botonUser setEnabled:YES];
+            [botonUser setToolTip:user];
+        }
+        [descriptionField setStringValue:desc];
+        [completeDescField setString:descComp];
+    }
 }
 
 - (void)doubleClick:(id)sender {

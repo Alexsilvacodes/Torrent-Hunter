@@ -848,13 +848,13 @@
 										<string key="NSCellIdentifier">_NS:687</string>
 										<reference key="NSControlView" ref="76929123"/>
 										<int key="NSButtonFlags">-2039201792</int>
-										<int key="NSButtonFlags2">65</int>
+										<int key="NSButtonFlags2">268435521</int>
 										<object class="NSCustomResource" key="NSNormalImage">
 											<string key="NSClassName">NSImage</string>
 											<string key="NSResourceName">NSInfo</string>
 										</object>
 										<string key="NSAlternateContents"/>
-										<string key="NSKeyEquivalent"/>
+										<string key="NSKeyEquivalent">t</string>
 										<int key="NSPeriodicDelay">200</int>
 										<int key="NSPeriodicInterval">25</int>
 									</object>
@@ -1423,7 +1423,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 									<reference key="NSDocView" ref="270981950"/>
 									<reference key="NSBGColor" ref="617215292"/>
 									<object class="NSCursor" key="NSCursor">
-										<string key="NSHotSpot">{5, 5}</string>
+										<string key="NSHotSpot">{1, -1}</string>
 										<int key="NSCursorType">0</int>
 									</object>
 									<int key="NScvFlags">4</int>

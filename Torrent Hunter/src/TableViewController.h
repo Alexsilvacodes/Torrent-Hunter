@@ -48,6 +48,7 @@
 - (IBAction)showTorrentPanel:(id)sender;
 - (IBAction)showInWeb:(id)sender;
 - (IBAction)showUserInWeb:(id)sender;
+- (void)monoClick:(id)sender;
 - (void)doubleClick:(id)sender;
 - (void)showAlertError:(NSString *)error;
 - (void)triggerTimeout60;

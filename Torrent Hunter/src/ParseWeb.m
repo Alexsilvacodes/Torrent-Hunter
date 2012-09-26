@@ -42,8 +42,8 @@
         NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         parser = [[HTMLParser alloc] initWithContentsOfURL:url error:&error];
 
-        if (error) {
-            [NSException raise:@"ConectionError" format:@""];
+        if ([error isNotEqualTo:nil]) {
+            [NSException raise:@"ConnectionError" format:@""];
         }
         
         HTMLNode *bodyNode = [parser body];
@@ -56,7 +56,7 @@
             [NSException raise:@"NoSearchResult" format:@""];
         }
         else if (!tableNode) {
-            [NSException raise:@"ConectionError" format:@""];
+            [NSException raise:@"ConnectionError" format:@""];
             NSLog(@"Conection");
         }
         else {
@@ -115,7 +115,9 @@
                     [current setDescription:[[descNode contents] stringByAppendingString:user]];
                     /* Tamaño */
                     NSArray *arraySize = [[descNode contents] componentsSeparatedByString:@" "];
-                    [current setSize:[[arraySize objectAtIndex:3] substringToIndex:[[arraySize objectAtIndex:3] length]-1]];
+                    NSString *tam = [[arraySize objectAtIndex:3] substringToIndex:[[arraySize objectAtIndex:3] length]-1];
+                    [current setSize:tam];
+                    
                     /* Logo Servicio */
                     [current setSource:[NSImage imageNamed:@"favicon_tpb.png"]];
                     
@@ -136,6 +138,9 @@
         else if ([[exception name] isLike:@"VoidError"]) {
             return @"void";
         }
+        else {
+            NSLog(@">> %@",[exception name]);
+        }
     }
 }
 
@@ -149,7 +154,7 @@
     
     /* Descripcion completa */
     HTMLNode *preNode = [[parserTorrent body] findChildTag:@"pre"];
-    return [preNode contents];
+    return [preNode allContents];
 }
 
 /*******************/

@@ -483,7 +483,7 @@
 											<string key="NSFrameSize">{858, 523}</string>
 											<reference key="NSSuperview" ref="60322131"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="589672578"/>
+											<reference key="NSNextKeyView" ref="561764370"/>
 											<string key="NSReuseIdentifierKey">_NS:1828</string>
 											<bool key="NSEnabled">YES</bool>
 											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -670,11 +670,6 @@
 													<int key="NSResizingMask">3</int>
 													<bool key="NSIsResizeable">YES</bool>
 													<reference key="NSTableView" ref="4378611"/>
-													<object class="NSSortDescriptor" key="NSSortDescriptorPrototype">
-														<string key="NSKey">size</string>
-														<bool key="NSAscending">YES</bool>
-														<string key="NSSelector">compare:</string>
-													</object>
 												</object>
 											</array>
 											<double key="NSIntercellSpacingWidth">3</double>
@@ -765,7 +760,7 @@
 							<string key="NSFrame">{{0, 26}, {860, 541}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="561764370"/>
+							<reference key="NSNextKeyView" ref="60322131"/>
 							<string key="NSReuseIdentifierKey">_NS:1824</string>
 							<int key="NSsFlags">133682</int>
 							<reference key="NSVScroller" ref="589672578"/>
@@ -857,7 +852,6 @@
 									<string key="NSFrame">{{162, 4}, {536, 17}}</string>
 									<reference key="NSSuperview" ref="133141377"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:3944</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSTextFieldCell" key="NSCell" id="937923543">
@@ -1230,7 +1224,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="NSFrame">{{23, 244}, {131, 32}}</string>
 						<reference key="NSSuperview" ref="264802475"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:687</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="437914924">
@@ -1383,7 +1376,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 											<string key="NSFrameSize">{223, 184}</string>
 											<reference key="NSSuperview" ref="468393354"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="582487811"/>
+											<reference key="NSNextKeyView" ref="137921675"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<object class="NSTextContainer" key="NSTextContainer" id="172387607">
 												<object class="NSLayoutManager" key="NSLayoutManager">
@@ -1459,7 +1452,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 									<string key="NSFrame">{{224, 1}, {15, 184}}</string>
 									<reference key="NSSuperview" ref="950835876"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:83</string>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									<reference key="NSTarget" ref="950835876"/>
@@ -1486,7 +1478,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string key="NSFrame">{{18, 13}, {240, 186}}</string>
 							<reference key="NSSuperview" ref="670472763"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="137921675"/>
+							<reference key="NSNextKeyView" ref="468393354"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133138</int>
 							<reference key="NSVScroller" ref="582487811"/>
@@ -2762,7 +2754,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1137</int>
+			<int key="maxID">1139</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

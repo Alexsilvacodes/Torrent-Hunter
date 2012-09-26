@@ -122,6 +122,7 @@
         [completeDescField setString:descComp];
         [panelTorrent setFrameOrigin:NSMakePoint([window frame].origin.x+830, [window frame].origin.y+130)];
         [panelTorrent setIsVisible:YES];
+        [window makeKeyWindow];
     }
     else {
         [panelTorrent close];
@@ -156,11 +157,15 @@
     [errorLabel setStringValue:@""];
 }
 
-- (void)triggerTimeout60 {
-    timerTimeout = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(searchTimeoutAction60) userInfo:nil repeats:NO];
+- (void)triggerTimeout40 {
+    timerTimeout = [NSTimer scheduledTimerWithTimeInterval:40
+                                                    target:self
+                                                  selector:@selector(searchTimeoutAction40)
+                                                  userInfo:nil
+                                                   repeats:NO];
 }
 
-- (void)searchTimeoutAction60 {
+- (void)searchTimeoutAction40 {
     if (!searchEnded) {
         [menuPreferences setEnabled:YES];
         [botonSettings setEnabled:YES];
@@ -226,7 +231,7 @@
     [botonSettings setEnabled:NO];
     [botonSearch setEnabled:NO];
 
-    [self performSelectorOnMainThread:@selector(triggerTimeout60) withObject:nil waitUntilDone:NO];
+    [self performSelectorOnMainThread:@selector(triggerTimeout40) withObject:nil waitUntilDone:NO];
     
     // if not void searchField, not void torrents Array or not connection error
     /*if ([checkTPB state] == NSOnState && [checkDem state] == NSOnState) {
@@ -296,6 +301,7 @@
     [botonSettings setEnabled:YES];
     [botonSearch setEnabled:YES];
     [progressGear stopAnimation:self];
+    [window makeFirstResponder:searchField];
     searchEnded = YES;
     /* Cancelar timer */
     [timerTimeout invalidate];
@@ -314,14 +320,56 @@
     return [t valueForKey:identifier];
 }
 
-- (void)tableView:(NSTableView *)tableView sortDescriptorsDidChange:(NSArray *)oldDescriptors
-{
+- (void)tableView:(NSTableView *)tableView sortDescriptorsDidChange:(NSArray *)oldDescriptors {
     [list sortUsingDescriptors:[tableView sortDescriptors]];
+    NSSortDescriptor *sortDesc = [[NSSortDescriptor alloc] initWithKey:@"size"
+                                                             ascending:YES
+                                                            comparator:^
+                                  NSComparisonResult(id obj1, id obj2) {
+                                      NSString *pref = [[obj1 componentsSeparatedByString:@" "] objectAtIndex:1];
+                                      double val1;
+                                      double val2;
+                                      
+                                      if ([pref isLike:@"KiB"]) {
+                                          val1 = [[[obj1 componentsSeparatedByString:@" "] objectAtIndex:0] doubleValue];
+                                          NSLog(@"%f",val1);
+                                      }
+                                      else if ([pref isLike:@"MiB"]) {
+                                          val1 = [[[obj1 componentsSeparatedByString:@" "] objectAtIndex:0] doubleValue];
+                                          val1 = val1 * 1000;
+                                      }
+                                      else if ([pref isLike:@"GiB"]) {
+                                          val1 = [[[obj1 componentsSeparatedByString:@" "] objectAtIndex:0] doubleValue];
+                                          val1 = val1 * 1000000;
+                                      }
+                                      
+                                      pref = [[obj2 componentsSeparatedByString:@" "] objectAtIndex:1];
+                                      
+                                      if ([pref isLike:@"KiB"]) {
+                                          val2 = [[[obj2 componentsSeparatedByString:@" "] objectAtIndex:0] doubleValue];
+                                          NSLog(@"%f",val2);
+                                      }
+                                      else if ([pref isLike:@"MiB"]) {
+                                          val2 = [[[obj2 componentsSeparatedByString:@" "] objectAtIndex:0] doubleValue];
+                                          val2 = val2 * 1000;
+                                      }
+                                      else if ([pref isLike:@"GiB"]) {
+                                          val2 = [[[obj2 componentsSeparatedByString:@" "] objectAtIndex:0] doubleValue];
+                                          val2 = val2 * 1000000;
+                                      }
+                                      
+                                      if (val1 < val2) {
+                                          return NSOrderedAscending;
+                                      }
+                                      else {
+                                          return NSOrderedDescending;
+                                      }
+                                  }];
+    [[tableView tableColumnWithIdentifier:@"size"] setSortDescriptorPrototype:sortDesc];
     [tableView reloadData];
 }
 
-- (void)tableView:(NSTableView *)tableView didClickTableColumn:(NSTableColumn *)tableColumn
-{
+- (void)tableView:(NSTableView *)tableView didClickTableColumn:(NSTableColumn *)tableColumn {
 	[tableView setFocusRingType:0];
 }
 

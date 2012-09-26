@@ -5,4 +5,3 @@ Alejandro Silva ([@alexsays28](https://twitter.com/alexsays28))
 # Special thanks to
 * zootreeves for the [Objective-C-HTML-Parser](https://github.com/zootreeves/Objective-C-HMTL-Parser)
 * My girlfriend for the support :)
-

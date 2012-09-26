@@ -33,6 +33,7 @@
 @property (copy) NSImage *source;
 @property (copy) NSString *size;
 @property (copy) NSString *completeDesc;
+@property double numSize;
 @property int pages;
 @property int seeders;
 @property int leechers;

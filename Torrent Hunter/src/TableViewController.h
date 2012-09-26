@@ -51,8 +51,8 @@
 - (void)monoClick:(id)sender;
 - (void)doubleClick:(id)sender;
 - (void)showAlertError:(NSString *)error;
-- (void)triggerTimeout60;
-- (void)searchTimeoutAction60;
+- (void)triggerTimeout40;
+- (void)searchTimeoutAction40;
 - (void)clearLabel;
 - (void)loadDatainTableView:(NSString *)type;
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;

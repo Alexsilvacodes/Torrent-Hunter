@@ -1,131 +1,71 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset='utf-8'>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Torrent Hunter by Alexsays</title>
+  </head>
 
-  <title>Torrent Hunter</title>
-  <style type="text/css">
-    body {
-      margin-top: 1.0em;
-      background-color: #CD4200; /* navy blue "fallback" */
-      background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#CD4200), to(#9D2300));
-      background-image: -webkit-linear-gradient(top, #CD4200, #9D2300);
-      background-image:    -moz-linear-gradient(top, #CD4200, #9D2300);
-      background-image:     -ms-linear-gradient(top, #CD4200, #9D2300);
-      background-image:      -o-linear-gradient(top, #CD4200, #9D2300);
-	  /*background-image: url(https://github.com/downloads/Alexsays/Torrent-Hunter/wood.png);*/
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #000000;
-    }
-    #container {
-      margin: 0 auto;
-      width: 750px;
-    }
-    #header {
-      background-image: url(https://github.com/downloads/Alexsays/Torrent-Hunter/Cajetin.png);
-      background-repeat: no-repeat;
-      width: 725px;
-      height: 150px;
-      padding-left: 15px;
-	  padding-right: 10px;
-    }
-    .box {
-      border-radius: 15px; -moz-border-radius: 15px;
-      background-color: #CC7E5A; padding: 1px 1px 1px 8px;
-      margin-top: 15px; margin-bottom: 15px;
-	  -webkit-box-shadow: 0 0 10px rgb(0,0,0);
-	  -moz-box-shadow: 0 0 20px rgb(0,0,0);
-	  box-shadow: 0 0 10px rgb(0,0,0);
-	}
-    h1 { font-size: 3.8em; color: #08112e; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #08112e; }
-    h3 { color: #08112e; }
-    a { color: #08112e; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-  </style>
-</head>
+  <body>
+    <div id="container">
+      <div class="inner">
 
-<body>
-  <a href="https://github.com/Alexsays/Torrent-Hunter"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+        <header>
+          <h1>Torrent Hunter</h1>
+          <h2>Application to search torrents on easy way</h2>
+        </header>
 
-  <div id="container">
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/Alexsays/Torrent-Hunter/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/Alexsays/Torrent-Hunter/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/Alexsays/Torrent-Hunter" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
 
-    <div id="header">
-      <div class="download">
-        <a href="https://github.com/downloads/Alexsays/Torrent-Hunter/Torrent%20Hunter%200.9.2b1.zip">
-          <img border="0" width="90" src="https://github.com/images/modules/download/zip.png"><br>Beta 0.9.2b1</a>
-      </div>
-  
-      <h1><a href="https://github.com/Alexsays/Torrent-Hunter">Torrent Hunter</a>
-        <span class="small">by <a href="https://github.com/Alexsays">Alexsays</a></span></h1>
-  
-      <div class="description">
-        Best way to search torrents. Powered by <a href="http://thepiratebay.se" target="_blank">The Pirate Bay</a> and <a href="http://demonoid.me" target="_blank">Demonoid</a>.
+        <hr>
+
+        <section id="main_content">
+          <h3>Welcome to GitHub Pages.</h3>
+
+<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+
+<pre><code>$ cd your_repo_root/repo_name
+$ git fetch origin
+$ git checkout gh-pages
+</code></pre>
+
+<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+
+<h3>Designer Templates</h3>
+
+<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+
+<h3>Rather Drive Stick?</h3>
+
+<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+
+<h3>Authors and Contributors</h3>
+
+<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+
+<h3>Support or Contact</h3>
+
+<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+        </section>
+
+        <footer>
+          Torrent Hunter is maintained by <a href="https://github.com/Alexsays">Alexsays</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
       </div>
     </div>
-    
-    <div class="box">
-      <h2>Version</h2>
-      <p>This application works only on Mac OS X 10.7 Lion</p>
-    </div>
-
-    <div class="box">
-      <h2>Authors</h2>
-      <p>Alejandro Silva Fernández (<a href="mailto:h4ll0ck@gmail.com?subject=[Torrent Hunter]">h4ll0ck@gmail.com</a>)
-      <br/></p>
-    </div>
-
-    <div class="box" style="width: 880px;">
-      <h2>Screenshot</h2>
-      <p><img width="900" height="589" src="https://github.com/downloads/Alexsays/Torrent-Hunter/Screenshot-0.9.1b3.png"></p>
-    </div>
-
-    <div class="box">
-      <h2>Changelogs</h2>
-      <h3>Current stable</h3>
-      <iframe width="740" height="300" frameborder="0" src="http://dl.dropbox.com/u/2583947/versions/stable.html"></iframe>
-      <h3>Older</h3>
-      <a href="http://dl.dropbox.com/u/2583947/versions/0.9.1b3.html">0.9.1 build 3</a>
-    </div>
-
-    <div class="box" style="padding-right: 8px;">
-      <h2>Download</h2>
-      <p>
-        You can download this project in 
-        <a href="https://github.com/downloads/Alexsays/Torrent-Hunter/Torrent%20Hunter%200.9.2b1.zip">zip</a>
-      </p>
-      <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-        by running:
-        <pre>$ git clone git://github.com/Alexsays/Torrent-Hunter</pre>
-      </p>
-    </div>
-
-    <div class="box">
-      <h2>Issues <img width="30" src="https://github.com/downloads/Alexsays/Torrent-Hunter/Nuvola_apps_bug.png"></h2>
-      <p>To report any issue/bug with the program, write your problem in <a href="https://github.com/Alexsays/Torrent-Hunter/issues">Issues</a> 
-      or <a href="mailto:h4ll0ck@gmail.com?subject=[Torrent Hunter] My issue is:">send an email</a> to h4ll0ck [at] gmail [dot] com.</p>
-    </div>
-
-    <div class="box">
-        <h2>License</h2>
-        <p>
-	<center><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
-	<img alt="Licencia Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" />
-	</a></center>
-	</p>
-    </div>
-    
-    <div class="footer">
-      get the source code on GitHub : <a href="https://github.com/Alexsays/Torrent-Hunter">Alexsays/Torrent-Hunter</a>
-    </div>
-
-  </div>
-
-</body>
+  </body>
 </html>

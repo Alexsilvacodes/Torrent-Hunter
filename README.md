@@ -1,7 +1,7 @@
 # Website
 [Torrent Hunter](http://alexsays.github.io/Torrent-Hunter)
 # Author
-Alejandro Silva ([@alexsays28](https://twitter.com/alexsays28))
+Alex Silva
 # Actual Version
 0.9.6 Build 2
 # Special thanks to

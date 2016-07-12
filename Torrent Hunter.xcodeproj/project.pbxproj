@@ -12,7 +12,7 @@
 		FA17936C14F690020080BBAF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA28C29414DB30770026F771 /* Cocoa.framework */; };
 		FA17936E14F690020080BBAF /* InstallerPlugins.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA17936D14F690020080BBAF /* InstallerPlugins.framework */; };
 		FA24281515126A5000882451 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA24281415126A5000882451 /* Sparkle.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		FA2428201512876200882451 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FA24281415126A5000882451 /* Sparkle.framework */; };
+		FA2428201512876200882451 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FA24281415126A5000882451 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		FA28C29514DB30770026F771 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA28C29414DB30770026F771 /* Cocoa.framework */; };
 		FA353C3914FD3D4000F7BD36 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA353C3214FD3D4000F7BD36 /* AppDelegate.m */; };
 		FA353C3A14FD3D4000F7BD36 /* ParseWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = FA353C3414FD3D4000F7BD36 /* ParseWeb.m */; };
@@ -29,7 +29,6 @@
 		FA6B9C9514EC0AE5006DD9D0 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6B9C9414EC0AE5006DD9D0 /* libxml2.dylib */; };
 		FA909ACC150A172E0046C653 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = FA909ACB150A172E0046C653 /* icon.icns */; };
 		FABD1CD3151553BE00167776 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FABD1CD1151553BE00167776 /* Localizable.strings */; };
-		FABD1CD5151553CD00167776 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FABD1CD1151553BE00167776 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -258,7 +257,7 @@
 		FA28C28714DB30770026F771 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0730;
 			};
 			buildConfigurationList = FA28C28A14DB30770026F771 /* Build configuration list for PBXProject "Torrent Hunter" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -299,7 +298,6 @@
 				FA909ACC150A172E0046C653 /* icon.icns in Resources */,
 				FA043EBC15129899000D5559 /* dsa_pub.pem in Resources */,
 				FABD1CD3151553BE00167776 /* Localizable.strings in Resources */,
-				FABD1CD5151553CD00167776 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +370,7 @@
 		FA17938114F690020080BBAF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TH/TH-Prefix.pch";
 				INFOPLIST_FILE = "TH/TH-Info.plist";
@@ -384,6 +383,7 @@
 		FA17938214F690020080BBAF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TH/TH-Prefix.pch";
 				INFOPLIST_FILE = "TH/TH-Info.plist";
@@ -397,12 +397,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -413,6 +422,9 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
@@ -424,16 +436,27 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
@@ -443,6 +466,7 @@
 		FA28C2C314DB30770026F771 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -451,6 +475,7 @@
 				GCC_PREFIX_HEADER = "Torrent Hunter/Torrent Hunter-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "Torrent Hunter/Torrent Hunter-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.AH-Develop.torrent-hunter";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -459,6 +484,7 @@
 		FA28C2C414DB30770026F771 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -467,6 +493,7 @@
 				GCC_PREFIX_HEADER = "Torrent Hunter/Torrent Hunter-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "Torrent Hunter/Torrent Hunter-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.AH-Develop.torrent-hunter";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

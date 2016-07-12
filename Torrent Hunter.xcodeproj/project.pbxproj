@@ -475,6 +475,7 @@
 				GCC_PREFIX_HEADER = "Torrent Hunter/Torrent Hunter-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "Torrent Hunter/Torrent Hunter-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.AH-Develop.torrent-hunter";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -493,6 +494,7 @@
 				GCC_PREFIX_HEADER = "Torrent Hunter/Torrent Hunter-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "Torrent Hunter/Torrent Hunter-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.AH-Develop.torrent-hunter";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

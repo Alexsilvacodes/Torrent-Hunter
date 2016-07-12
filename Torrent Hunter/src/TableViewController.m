@@ -67,25 +67,10 @@
 
 - (void)doubleClick:(id)sender {
     if ([list count] > 0 && [[torrentTableView selectedRowIndexes] count] == 1) {
-        BOOL magnetAppSet = NO;
-        NSString *plistPath = NSHomeDirectory();
-        plistPath = [plistPath stringByAppendingString:@"/Library/Preferences/com.apple.LaunchServices.plist"];
-        NSDictionary *plistData = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
-        NSArray *arrayData = [plistData objectForKey:[[plistData allKeys] objectAtIndex:0]];
-        for (NSDictionary *elemDict in arrayData) {
-            if ([[elemDict objectForKey:@"LSHandlerURLScheme"] isEqual:@"magnet"]) {
-                magnetAppSet = YES;
-            }
-        }
-        if (magnetAppSet) {
-            NSInteger i = [torrentTableView clickedRow];
-            NSURL *magnet = [NSURL URLWithString:[[list objectAtIndex:i] magnetLink]];
-            //NSString *titleGrowl = @"Torrent Hunter";
-            //NSString *msgGrowl = NSLocalizedString(@"Downloading click result", "Growl -> description");
-            //[GrowlApplicationBridge notifyWithTitle:titleGrowl description:msgGrowl notificationName:nil iconData:nil priority:0 isSticky:NO clickContext:nil];
-            [[NSWorkspace sharedWorkspace] openURL:magnet];
-        }
-        else {
+        NSInteger i = [torrentTableView clickedRow];
+        NSURL *magnet = [NSURL URLWithString:[[list objectAtIndex:i] magnetLink]];
+        
+        if (![[NSWorkspace sharedWorkspace] openURL:magnet]) {
             NSAlert *alert = [[NSAlert alloc] init];
             [alert addButtonWithTitle:NSLocalizedString(@"Download", "Alert -> download")];
             [alert addButtonWithTitle:NSLocalizedString(@"Cancel", "Alert -> cancel")];
@@ -99,7 +84,7 @@
 
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == NSAlertFirstButtonReturn) {
-        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://www.transmissionbt.com/"]];
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.transmissionbt.com/"]];
     }
 }
 
@@ -167,25 +152,27 @@
 
 - (void)searchTimeoutAction40 {
     if (!searchEnded) {
-        [menuPreferences setEnabled:YES];
-        [botonSettings setEnabled:YES];
-        [botonSearch setEnabled:YES];
-        [searchField setStringValue:@""];
-        [searchField setEnabled:YES];
-        [self search:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [menuPreferences setEnabled:YES];
+            [botonSettings setEnabled:YES];
+            [botonSearch setEnabled:YES];
+            [searchField setStringValue:@""];
+            [searchField setEnabled:YES];
+            [self search:nil];
+        });
     }
     searchEnded = NO;
 }
 
 - (void)loadDatainTableView:(NSString *)type {
-    NSString *urlTPB = @"http://thepiratebay.se/search/";
-    //NSString *urlDem = @"http://www.demonoid.me/files/?to=0&uid=0&category=";
+    NSString *urlTPB = @"https://thepiratebay.org/search/";
+    NSString *urlKAT = @"https://kat.cr/usearch/";
     NSString *error = [[NSString alloc] init];
     NSString *stringLabelNTorrent = [[NSString alloc] init];
     NSString *toolTip = NSLocalizedString(@"Results for: ", "Tooltip -> results");
     id torrents = nil;
-    //id torrentsTPB = nil;
-    //id torrentsDem = nil;
+    id torrentsTPB = nil;
+    id torrentsDem = nil;
     
     // Do the parse
     NSString *searchValue = [searchField stringValue];
@@ -193,33 +180,27 @@
     
     if ([radioAll state] == NSOnState) {
         // Todo
-        //urlDem = [urlDem stringByAppendingString:@"0"];
+        urlKAT = urlKAT;
         searchStringTPB = [searchStringTPB stringByAppendingString:@"/0/7/0"];
-    }
-    else if ([radioApps state] == NSOnState) {
+    } else if ([radioApps state] == NSOnState) {
         // Apps
-        //urlDem = [urlDem stringByAppendingString:@"5"];
+        urlKAT = [urlKAT stringByAppendingString:@" category:applications"];
         searchStringTPB = [searchStringTPB stringByAppendingString:@"/0/7/300"];
-    }
-    else if ([radioVids state] == NSOnState) {
+    } else if ([radioVids state] == NSOnState) {
         // Videos
-        //urlDem = [urlDem stringByAppendingString:@"1"];
+        urlKAT = [urlKAT stringByAppendingString:@" category:movies"];
         searchStringTPB = [searchStringTPB stringByAppendingString:@"/0/7/200"];
-    }
-    else if ([radioGames state] == NSOnState) {
+    } else if ([radioGames state] == NSOnState) {
         // Games
-        //urlDem = [urlDem stringByAppendingString:@"4"];
+        urlKAT = [urlKAT stringByAppendingString:@" category:games"];
         searchStringTPB = [searchStringTPB stringByAppendingString:@"/0/7/400"];
-    }
-    else if ([radioMusic state] == NSOnState) {
+    } else if ([radioMusic state] == NSOnState) {
         // Music
-        //urlDem = [urlDem stringByAppendingString:@"2"];
+        urlKAT = [urlKAT stringByAppendingString:@" category:music"];
         searchStringTPB = [searchStringTPB stringByAppendingString:@"/0/7/101"];
     }
     
-    //urlDem = [urlDem stringByAppendingString:@"&subcategory=0&language=0&seeded=0&quality=0&external=2&query="];
-    //NSString *searchStringDem = [urlDem stringByAppendingString:searchValue];
-    //searchStringDem = [searchStringDem stringByAppendingString:@"&sort=S"];
+    urlKAT = [urlKAT stringByAppendingString:@"/?field=seeders&sorder=desc"];
     parser = [[ParseWeb alloc] init];
     [self clearLabel];
     [progressGear startAnimation:self];
@@ -305,7 +286,6 @@
     searchEnded = YES;
     /* Cancelar timer */
     [timerTimeout invalidate];
-    
 }
 
 #pragma mark TableView methods

@@ -56,7 +56,6 @@
 		FA28C29714DB30770026F771 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		FA28C29814DB30770026F771 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		FA28C29914DB30770026F771 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		FA28C2B214DB30770026F771 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		FA353C3114FD3D4000F7BD36 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = src/AppDelegate.h; sourceTree = "<group>"; };
 		FA353C3214FD3D4000F7BD36 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = src/AppDelegate.m; sourceTree = "<group>"; };
 		FA353C3314FD3D4000F7BD36 /* ParseWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParseWeb.h; path = src/ParseWeb.h; sourceTree = "<group>"; };
@@ -79,9 +78,9 @@
 		FA39972D14F3E342001334C0 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = "Torrent Hunter/es.lproj/MainMenu.xib"; sourceTree = "<group>"; };
 		FA6B9C9414EC0AE5006DD9D0 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		FA909ACB150A172E0046C653 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
-		FABD1CCD1515537700167776 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "/Users/Alex/Dropbox/Proyectos/Torrent-Hunter/Torrent Hunter/en.lproj/InfoPlist.strings"; sourceTree = "<absolute>"; };
-		FABD1CCE1515537700167776 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = "/Users/Alex/Dropbox/Proyectos/Torrent-Hunter/Torrent Hunter/en.lproj/Credits.rtf"; sourceTree = "<absolute>"; };
-		FABD1CCF1515537700167776 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "/Users/Alex/Dropbox/Proyectos/Torrent-Hunter/en.lproj/MainMenu.xib"; sourceTree = "<absolute>"; };
+		FA92DC261D353F4A0071562E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		FA92DC271D353F560071562E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "Torrent Hunter/en.lproj/MainMenu.xib"; sourceTree = "<group>"; };
+		FA92DC281D353F680071562E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FABD1CD2151553BE00167776 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FABD1CD4151553CD00167776 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -142,25 +141,16 @@
 		FA28C29314DB30770026F771 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FA28C29714DB30770026F771 /* AppKit.framework */,
+				FA28C29814DB30770026F771 /* CoreData.framework */,
+				FA28C29914DB30770026F771 /* Foundation.framework */,
 				FA24281415126A5000882451 /* Sparkle.framework */,
 				FA0E3FB514F2CB5B00DBD9DB /* WebKit.framework */,
 				FA6B9C9414EC0AE5006DD9D0 /* libxml2.dylib */,
 				FA28C29414DB30770026F771 /* Cocoa.framework */,
-				FA28C2B214DB30770026F771 /* SenTestingKit.framework */,
 				FA17936D14F690020080BBAF /* InstallerPlugins.framework */,
-				FA28C29614DB30770026F771 /* Other Frameworks */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		FA28C29614DB30770026F771 /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				FA28C29714DB30770026F771 /* AppKit.framework */,
-				FA28C29814DB30770026F771 /* CoreData.framework */,
-				FA28C29914DB30770026F771 /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 		FA28C29A14DB30770026F771 /* Torrent Hunter */ = {
@@ -344,7 +334,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FA39972714F3E33A001334C0 /* es */,
-				FABD1CCE1515537700167776 /* en */,
+				FA92DC261D353F4A0071562E /* en */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
@@ -353,7 +343,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FA39972914F3E33A001334C0 /* es */,
-				FABD1CCD1515537700167776 /* en */,
+				FA92DC281D353F680071562E /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -362,7 +352,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FA39972D14F3E342001334C0 /* es */,
-				FABD1CCF1515537700167776 /* en */,
+				FA92DC271D353F560071562E /* en */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";

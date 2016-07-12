@@ -35,3 +35,18 @@
 
 /* LabelTorrent -> for */
 " results of " = " results of ";
+
+/* Alert -> download */
+"Download" = "Download";
+
+/* Alert -> cancel */
+"Cancel" = "Cancel";
+
+/* Alert -> title */
+"Magnet Link application" = "Magnet Link application";
+
+/* Alert -> description */
+"No torrent download application founded. Do you want to download Transsmision client?" = "No torrent download application founded. Do you want to download Transsmision client?";
+
+/* Growl -> description */
+"Downloading clicked result" = "Downloading clicked result";

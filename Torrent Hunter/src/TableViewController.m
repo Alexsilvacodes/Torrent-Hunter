@@ -12,7 +12,6 @@
 @implementation TableViewController
 
 @synthesize parser;
-@synthesize popoverTorrent;
 
 - (id)init {
     self = [super init];
@@ -25,9 +24,14 @@
 }
 
 - (void)awakeFromNib {
+    // set up growl notifications regardless of whether or not we're supposed to growl
+    //[GrowlApplicationBridge setGrowlDelegate:self];
+    
+    searchEnded = NO;
     [searchField setRecentSearches:recentSearches];
     [torrentTableView setTarget:self];
     [torrentTableView setDoubleAction:NSSelectorFromString(@"doubleClick:")];
+    [torrentTableView setAction:NSSelectorFromString(@"monoClick:")];
 }
 
 - (IBAction)search:(id)sender {
@@ -41,19 +45,12 @@
     [threads addOperation:task];
 }
 
-- (void)doubleClick:(id)sender {
-    if ([list count] > 0 && [[torrentTableView selectedRowIndexes] count] == 1) {
-        NSInteger i = [torrentTableView clickedRow];
-        NSURL *magnet = [NSURL URLWithString:[[list objectAtIndex:i] magnetLink]];
-        [[NSWorkspace sharedWorkspace] openURL:magnet];
-    }
-}
-
-- (IBAction)showPopover:(id)sender {
-    if ([list count] >0 && [torrentTableView selectedRow] != -1 ) {
+- (void)monoClick:(id)sender{
+    if ([list count] >0 && [torrentTableView selectedRow] != -1) {
         NSInteger i = [torrentTableView selectedRow];
         NSString *desc = [[NSString alloc] initWithString:[[list objectAtIndex:i] description]];
         NSString *user = [[NSString alloc] initWithString:[[list objectAtIndex:i] userName]];
+        NSString *descComp = [[NSString alloc] initWithString:[parser getDesc:[[list objectAtIndex:i] url]]];
         clicked = i;
         if ([[[list objectAtIndex:i] userURL] isEqualTo:@"NoUser"]) {
             [botonUser setEnabled:NO];
@@ -64,7 +61,56 @@
             [botonUser setToolTip:user];
         }
         [descriptionField setStringValue:desc];
-        [popoverTorrent showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMinYEdge];
+        [completeDescField setString:descComp];
+    }
+}
+
+- (void)doubleClick:(id)sender {
+    if ([list count] > 0 && [[torrentTableView selectedRowIndexes] count] == 1) {
+        NSInteger i = [torrentTableView clickedRow];
+        NSURL *magnet = [NSURL URLWithString:[[list objectAtIndex:i] magnetLink]];
+        
+        if (![[NSWorkspace sharedWorkspace] openURL:magnet]) {
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert addButtonWithTitle:NSLocalizedString(@"Download", "Alert -> download")];
+            [alert addButtonWithTitle:NSLocalizedString(@"Cancel", "Alert -> cancel")];
+            [alert setMessageText:NSLocalizedString(@"Magnet Link application", "Alert -> title")];
+            [alert setInformativeText:NSLocalizedString(@"No torrent download application founded. Do you want to download Transsmision client?", "Alert -> description")];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:nil];
+        }
+    }
+}
+
+- (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    if (returnCode == NSAlertFirstButtonReturn) {
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.transmissionbt.com/"]];
+    }
+}
+
+- (IBAction)showTorrentPanel:(id)sender {
+    if (![panelTorrent isVisible] && [list count] >0 && [torrentTableView selectedRow] != -1) {
+        NSInteger i = [torrentTableView selectedRow];
+        NSString *desc = [[NSString alloc] initWithString:[[list objectAtIndex:i] description]];
+        NSString *user = [[NSString alloc] initWithString:[[list objectAtIndex:i] userName]];
+        NSString *descComp = [[NSString alloc] initWithString:[parser getDesc:[[list objectAtIndex:i] url]]];
+        clicked = i;
+        if ([[[list objectAtIndex:i] userURL] isEqualTo:@"NoUser"]) {
+            [botonUser setEnabled:NO];
+            [botonUser setToolTip:user];
+        }
+        else {
+            [botonUser setEnabled:YES];
+            [botonUser setToolTip:user];
+        }
+        [descriptionField setStringValue:desc];
+        [completeDescField setString:descComp];
+        [panelTorrent setFrameOrigin:NSMakePoint([window frame].origin.x+830, [window frame].origin.y+130)];
+        [panelTorrent setIsVisible:YES];
+        [window makeKeyWindow];
+    }
+    else {
+        [panelTorrent close];
     }
 }
 
@@ -96,9 +142,31 @@
     [errorLabel setStringValue:@""];
 }
 
+- (void)triggerTimeout40 {
+    timerTimeout = [NSTimer scheduledTimerWithTimeInterval:40
+                                                    target:self
+                                                  selector:@selector(searchTimeoutAction40)
+                                                  userInfo:nil
+                                                   repeats:NO];
+}
+
+- (void)searchTimeoutAction40 {
+    if (!searchEnded) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [menuPreferences setEnabled:YES];
+            [botonSettings setEnabled:YES];
+            [botonSearch setEnabled:YES];
+            [searchField setStringValue:@""];
+            [searchField setEnabled:YES];
+            [self search:nil];
+        });
+    }
+    searchEnded = NO;
+}
+
 - (void)loadDatainTableView:(NSString *)type {
-    NSString *urlTPB = @"http://thepiratebay.se/search/";
-    NSString *urlDem = @"http://www.demonoid.me/files/?to=0&uid=0&category=0&subcategory=0&language=0&seeded=0&quality=0&external=2&query=";
+    NSString *urlTPB = @"https://thepiratebay.org/search/";
+    NSString *urlKAT = @"https://kat.cr/usearch/";
     NSString *error = [[NSString alloc] init];
     NSString *stringLabelNTorrent = [[NSString alloc] init];
     NSString *toolTip = NSLocalizedString(@"Results for: ", "Tooltip -> results");
@@ -109,30 +177,55 @@
     // Do the parse
     NSString *searchValue = [searchField stringValue];
     NSString *searchStringTPB = [urlTPB stringByAppendingString:searchValue];
-    NSString *searchStringDem = [urlDem stringByAppendingString:searchValue];
-    searchStringDem = [searchStringDem stringByAppendingString:@"&sort=S"];
+    
+    if ([radioAll state] == NSOnState) {
+        // Todo
+        urlKAT = urlKAT;
+        searchStringTPB = [searchStringTPB stringByAppendingString:@"/0/7/0"];
+    } else if ([radioApps state] == NSOnState) {
+        // Apps
+        urlKAT = [urlKAT stringByAppendingString:@" category:applications"];
+        searchStringTPB = [searchStringTPB stringByAppendingString:@"/0/7/300"];
+    } else if ([radioVids state] == NSOnState) {
+        // Videos
+        urlKAT = [urlKAT stringByAppendingString:@" category:movies"];
+        searchStringTPB = [searchStringTPB stringByAppendingString:@"/0/7/200"];
+    } else if ([radioGames state] == NSOnState) {
+        // Games
+        urlKAT = [urlKAT stringByAppendingString:@" category:games"];
+        searchStringTPB = [searchStringTPB stringByAppendingString:@"/0/7/400"];
+    } else if ([radioMusic state] == NSOnState) {
+        // Music
+        urlKAT = [urlKAT stringByAppendingString:@" category:music"];
+        searchStringTPB = [searchStringTPB stringByAppendingString:@"/0/7/101"];
+    }
+    
+    urlKAT = [urlKAT stringByAppendingString:@"/?field=seeders&sorder=desc"];
     parser = [[ParseWeb alloc] init];
     [self clearLabel];
     [progressGear startAnimation:self];
     if ([drawerSettings state] == 1 || [drawerSettings state] == 2) {
         [drawerSettings performSelectorOnMainThread:@selector(close) withObject:nil waitUntilDone:NO];
     }
+    [menuPreferences setEnabled:NO];
     [searchField setEnabled:NO];
     [botonSettings setEnabled:NO];
     [botonSearch setEnabled:NO];
+
+    [self performSelectorOnMainThread:@selector(triggerTimeout40) withObject:nil waitUntilDone:NO];
     
     // if not void searchField, not void torrents Array or not connection error
-    if ([checkTPB state] == NSOnState && [checkDem state] == NSOnState) {
+    /*if ([checkTPB state] == NSOnState && [checkDem state] == NSOnState) {
         torrentsTPB = [parser loadHTMLbyURLTPB:searchStringTPB];
-        torrentsDem = [parser loadHTMLbyURLDem:searchStringDem];
+        //torrentsDem = [parser loadHTMLbyURLDem:searchStringDem];
         if (([torrentsDem isNotEqualTo:@"void"] && [torrentsDem isNotEqualTo:@"-1"] && [torrentsDem isNotEqualTo:@"-2"]) && ([torrentsTPB isNotEqualTo:@"void"] && [torrentsDem isNotEqualTo:@"-1"] && [torrentsDem isNotEqualTo:@"-2"])) {
             torrents = torrentsTPB;
             [torrents addObjectsFromArray:torrentsDem];
         }
-        else if (([torrentsDem isNotEqualTo:@"void"] && [torrentsDem isNotEqualTo:@"-1"] && [torrentsDem isNotEqualTo:@"-2"]) && ([torrentsTPB isEqualTo:@"void"] || [torrentsDem isEqualTo:@"-1"] || [torrentsDem isEqualTo:@"-2"])) {
+        else if (([torrentsDem isNotEqualTo:@"void"] && [torrentsDem isNotEqualTo:@"-1"] && [torrentsDem isNotEqualTo:@"-2"]) && ([torrentsTPB isEqualTo:@"void"] || [torrentsTPB isEqualTo:@"-1"] || [torrentsTPB isEqualTo:@"-2"])) {
             torrents = torrentsDem;
         }
-        else if (([torrentsDem isEqualTo:@"void"] || [torrentsDem isEqualTo:@"-1"] || [torrentsDem isEqualTo:@"-2"]) && ([torrentsTPB isNotEqualTo:@"void"] && [torrentsDem isNotEqualTo:@"-1"] && [torrentsDem isNotEqualTo:@"-2"])) {
+        else if (([torrentsDem isEqualTo:@"void"] || [torrentsDem isEqualTo:@"-1"] || [torrentsDem isEqualTo:@"-2"]) && ([torrentsTPB isNotEqualTo:@"void"] && [torrentsTPB isNotEqualTo:@"-1"] && [torrentsTPB isNotEqualTo:@"-2"])) {
             torrents = torrentsTPB;
         }
         else {
@@ -150,11 +243,12 @@
         [drawerSettings performSelectorOnMainThread:@selector(open) withObject:nil waitUntilDone:NO];
         [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(clearLabel) userInfo:nil repeats:NO];
         NSLog(@"No Service");
-    }
+    }*/
     [list removeAllObjects];
     
+    torrents = [parser loadHTMLbyURLTPB:searchStringTPB];
+    
     if ([torrents isNotEqualTo:@"-1"] && [torrents isNotEqualTo:@"-2"] && [torrents isNotEqualTo:@"void"]){
-        
         for (Torrent *tor in torrents){
             [list addObject:tor];
         }
@@ -183,11 +277,15 @@
         [self performSelectorOnMainThread:@selector(showAlertError:) withObject:error waitUntilDone:NO];
     }
     [searchField setStringValue:@""];
+    [menuPreferences setEnabled:YES];
     [searchField setEnabled:YES];
     [botonSettings setEnabled:YES];
     [botonSearch setEnabled:YES];
     [progressGear stopAnimation:self];
-    
+    [window makeFirstResponder:searchField];
+    searchEnded = YES;
+    /* Cancelar timer */
+    [timerTimeout invalidate];
 }
 
 #pragma mark TableView methods
@@ -202,14 +300,56 @@
     return [t valueForKey:identifier];
 }
 
-- (void)tableView:(NSTableView *)tableView sortDescriptorsDidChange:(NSArray *)oldDescriptors
-{
+- (void)tableView:(NSTableView *)tableView sortDescriptorsDidChange:(NSArray *)oldDescriptors {
     [list sortUsingDescriptors:[tableView sortDescriptors]];
+    NSSortDescriptor *sortDesc = [[NSSortDescriptor alloc] initWithKey:@"size"
+                                                             ascending:YES
+                                                            comparator:^
+                                  NSComparisonResult(id obj1, id obj2) {
+                                      NSString *pref = [[obj1 componentsSeparatedByString:@" "] objectAtIndex:1];
+                                      double val1;
+                                      double val2;
+                                      
+                                      if ([pref isLike:@"KiB"]) {
+                                          val1 = [[[obj1 componentsSeparatedByString:@" "] objectAtIndex:0] doubleValue];
+                                          NSLog(@"%f",val1);
+                                      }
+                                      else if ([pref isLike:@"MiB"]) {
+                                          val1 = [[[obj1 componentsSeparatedByString:@" "] objectAtIndex:0] doubleValue];
+                                          val1 = val1 * 1000;
+                                      }
+                                      else if ([pref isLike:@"GiB"]) {
+                                          val1 = [[[obj1 componentsSeparatedByString:@" "] objectAtIndex:0] doubleValue];
+                                          val1 = val1 * 1000000;
+                                      }
+                                      
+                                      pref = [[obj2 componentsSeparatedByString:@" "] objectAtIndex:1];
+                                      
+                                      if ([pref isLike:@"KiB"]) {
+                                          val2 = [[[obj2 componentsSeparatedByString:@" "] objectAtIndex:0] doubleValue];
+                                          NSLog(@"%f",val2);
+                                      }
+                                      else if ([pref isLike:@"MiB"]) {
+                                          val2 = [[[obj2 componentsSeparatedByString:@" "] objectAtIndex:0] doubleValue];
+                                          val2 = val2 * 1000;
+                                      }
+                                      else if ([pref isLike:@"GiB"]) {
+                                          val2 = [[[obj2 componentsSeparatedByString:@" "] objectAtIndex:0] doubleValue];
+                                          val2 = val2 * 1000000;
+                                      }
+                                      
+                                      if (val1 < val2) {
+                                          return NSOrderedAscending;
+                                      }
+                                      else {
+                                          return NSOrderedDescending;
+                                      }
+                                  }];
+    [[tableView tableColumnWithIdentifier:@"size"] setSortDescriptorPrototype:sortDesc];
     [tableView reloadData];
 }
 
-- (void)tableView:(NSTableView *)tableView didClickTableColumn:(NSTableColumn *)tableColumn
-{
+- (void)tableView:(NSTableView *)tableView didClickTableColumn:(NSTableColumn *)tableColumn {
 	[tableView setFocusRingType:0];
 }
 
